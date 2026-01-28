@@ -25,7 +25,7 @@ if the need arises.
 
 ## Getting Started
 
-The best place to get started is probably the extensive [documentation]().
+The best place to get started is probably the extensive [documentation](https://martin-rabel.github.io/Causal_GLDF/).
 Further, there are tutorials in the form of jupyter-notebooks in the sub-directory "tutorials".
 This package is designed to be easily extensible and to integrate well out-of-the box
 with [tigramite](https://github.com/jakobrunge/tigramite).
