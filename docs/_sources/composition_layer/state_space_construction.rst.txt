@@ -1,0 +1,70 @@
+Acyclic Union-Graphs
+--------------------
+
+.. py:module:: GLDF.state_space_construction
+    :synopsis: Baseline state-space construction.
+.. py:currentmodule:: GLDF.state_space_construction
+
+
+.. autoclass:: NoUnionCycles()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+    
+.. autoclass:: ModelIndicators_NoUnionCycles()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+    
+.. autoclass:: StateSpace()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: State()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: ModelIndicator()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: StructuredResultWithTranslation()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: Unionize_Translate_Transfer_NoUnionCylces()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: ResolveByRepresentor()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:

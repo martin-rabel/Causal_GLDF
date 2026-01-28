@@ -1,0 +1,86 @@
+.. _label-data-mgr-details:
+
+Details on Data Managers
+------------------------
+
+.. py:currentmodule:: GLDF.data_management
+
+
+Specification
+^^^^^^^^^^^^^
+
+.. autoclass:: IManageData()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+    
+.. _label-cache-ids:
+
+Cache IDs
+^^^^^^^^^
+
+It is, for good runtime performance, often helpful to cache test-results at different stages.
+The :py:mod:`frontend<GLDF.frontend>` provides simple ways to inject cache-layers at different points of
+the framework, and the sample-configurations provided in the frontend also do so.
+
+As the input data to the framework can (and is) typically be assumed immutable,
+results can be cached relative to test-indeces. It is the responsibility of the
+data-manager (and the custom pattern-provider), to provide unique cache-ids
+for queries: Given two :py:class:`CIT_Data` objects provided by the same
+data-manager, they may have the same cache-id only if they contain the same data.
+It is in practice usually possible to employ the test-index (plus requested block-size
+for :py:class:`BlockView` objects). The current built-in implementation additionally
+prefixes the test-index by the data-manager object's memory address to prevent potential
+issues when using multiple data-managers with the same cache-layer.
+If cache will be writen to files or execution is parallelized accross multiple
+processes, it may be reasonable to include an initial-data hash (computed once at program
+initialization) instead of a memory address.
+
+*   When implementing a custom data-manager (exposing :py:class:`IManageData`),
+    the implementation of :py:meth:`IManageData.get_patterned_data` has to write
+    a cache-id to the output that uniquely identifies the produced :py:class:`CIT_Data`.
+    This cache-id will typically be based on the data-manager's object memory address
+    (can be passed as the object itself in python) or data-hash and the
+    :py:class:`CI_Identifier` argument.
+*   When implementing a custom pattern (extending :py:class:`CIT_DataPatterned`),
+    the implemenation of :py:meth:`CIT_DataPatterned.view_blocks` has to write
+    a cache-id to the output that uniquely identifies the produced :py:class:`BlockView`.
+    This cache-id will typically be based on :py:obj:`self.cache_id` and
+    the requested (or actual) block-size.
+*   When implementing a cachable test, you can (this should not typically be necessary
+    if deriving from :py:class:`ITestCI<GLDF.data_processing.ITestCI>` or
+    :py:class:`IProvideIndependenceAtoms<GLDF.hccd.IProvideIndependenceAtoms>`)
+    expose a method :py:meth:`!_extract_cache_id` returning a
+    cache-id for a given query. It is called with the query-name :py:obj:`!fname`
+    (a string, the name of the method cached, e.g. 'run_many')
+    as first argument and the run-time arguments of that method's invokation
+    as further arguments. See for example :py:meth:`ITestCI<GLDF.data_processing.ITestCI._extract_cache_id>`
+    or :py:meth:`IProvideIndependenceAtoms<GLDF.hccd.IProvideIndependenceAtoms>`
+    which provide fallbacks for CITs and full backends.
+
+The cache-id has to be hashable and equality-comparable. Note that tuples of
+hashable and equality-comparable types are again hashable and equality-comparable.
+Further :py:class:`CI_Identifier`\ [\ :py:obj:`var_index`\ ] is hashable and equality-comparable
+if :py:obj:`var_index` is.
+
+
+Baseline Implementations
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: DataManager_NumpyArray_IID()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+    
+
+.. autoclass:: DataManager_NumpyArray_Timeseries()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+    

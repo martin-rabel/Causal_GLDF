@@ -1,0 +1,51 @@
+Bridges
+=======
+
+.. py:module:: GLDF.bridges
+    :synopsis: Bridges for third-party package integration.
+
+In :py:mod:`bridges <GLDF.bridges>` we provide wrappers for seamless integration with
+CD-algorithm implemenations in other packages.
+
+To integrate further third-party or your own algorithms and implemenations,
+they only have to be wrapped to satisfy the format :py:type:`abstract_cd_t<GLDF.hccd.abstract_cd_t>`,
+for more details see :ref:`label-abstract-cd`.
+
+
+Tigramite Integration
+---------------------
+
+.. py:module:: GLDF.bridges.tigramite
+    :synopsis: Bridge for tigramite integration.
+
+.. py:currentmodule:: GLDF.bridges.tigramite
+
+Bridge for `tigramite <https://jakobrunge.github.io/tigramite/>`_ integration.
+Tigramite specializes to causal methods (including causal discovery) for *time-series*.
+Our output-graphs (see :py:type:`graph_t<GLDF.hccd.graph_t>`) are in tigramite's internal format,
+and can be used directly e.g. with effect-estimation or mediation code from tigramite.
+
+.. autofunction:: alg_pcmci
+
+.. autofunction:: alg_pcmciplus
+
+.. autofunction:: alg_lpcmci
+
+
+Causal Learn Integration
+------------------------
+
+.. py:module:: GLDF.bridges.causal_learn
+    :synopsis: Bridge for causal-learn integration.
+
+.. py:currentmodule:: GLDF.bridges.causal_learn
+
+Bridge for `causal-learn <https://causal-learn.readthedocs.io/en/latest/index.html>`_ [ZHC+24]_ integration.
+Causal Learn provides a broad range of causal methods, currently our framework is
+ready for use with their basic IID-data constraint-based CD-method implementations.
+
+.. autofunction:: alg_pc
+
+.. autofunction:: alg_pc_stable
+
+.. autofunction:: alg_fci

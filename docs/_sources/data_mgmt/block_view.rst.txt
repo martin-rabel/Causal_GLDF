@@ -1,0 +1,19 @@
+Block View
+----------
+
+.. py:currentmodule:: GLDF.data_management
+
+.. autoclass:: BlockView()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :exclude-members: __init__
+    :undoc-members:
+    
+    .. automethod:: __init__
+        
+        Construct block-view from reference to pattern-provider and block-views of X, Y, Z.
+
+        .. seealso::
+            In most cases, the user should use :py:meth:`CIT_DataPatterned.view_blocks` instead.
+            This constructor is primarily for internal use.

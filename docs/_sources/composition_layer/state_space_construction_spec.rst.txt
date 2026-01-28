@@ -1,0 +1,31 @@
+Specification
+-------------
+
+.. py:currentmodule:: GLDF.hccd
+
+.. autoclass:: IConstructStateSpace()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: IRepresentStateSpace()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: IRepresentState()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: IPresentResult()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:

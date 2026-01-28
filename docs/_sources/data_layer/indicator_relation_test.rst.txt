@@ -1,0 +1,13 @@
+Indicator-Relation Tests
+------------------------
+
+.. py:currentmodule:: GLDF.data_processing
+
+.. autoclass:: IndicatorImplication_AcceptanceInterval()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :inherited-members:
+    :undoc-members:

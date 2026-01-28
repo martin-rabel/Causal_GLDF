@@ -1,0 +1,36 @@
+Interfaces for mCIT Components
+------------------------------
+
+.. py:currentmodule:: GLDF.data_processing
+
+
+.. autoclass:: ITestMarkedCI()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: ITestHomogeneity()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: ITestWeakRegime()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: ITestIndicatorImplications()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:

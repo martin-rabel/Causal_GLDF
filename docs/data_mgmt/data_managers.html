@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Details on Data Managers &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Processing Layer" href="../layer_data_proc.html" />
+    <link rel="prev" title="Block View" href="block_view.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../frontend.html">Frontend</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../data_mgmt.html">Data Management</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../data_mgmt.html#indexing-and-cit-identifiers">Indexing and CIT Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_mgmt.html#data-representation">Data Representation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../data_mgmt.html#data-manager">Data Manager</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Details on Data Managers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#specification">Specification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cache-ids">Cache IDs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#baseline-implementations">Baseline Implementations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../layer_composition.html">Composition Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../data_mgmt.html">Data Management</a></li>
+      <li class="breadcrumb-item active">Details on Data Managers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/data_mgmt/data_managers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="details-on-data-managers">
+<span id="label-data-mgr-details"></span><h1>Details on Data Managers<a class="headerlink" href="#details-on-data-managers" title="Link to this heading"></a></h1>
+<section id="specification">
+<h2>Specification<a class="headerlink" href="#specification" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.IManageData">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">IManageData</span></span><a class="headerlink" href="#GLDF.data_management.IManageData" title="Link to this definition"></a></dt>
+<dd><p>Specification of data-manager interface. Implement this to provide a custom data-manager.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.IManageData.get_patterned_data">
+<span class="sig-name descname"><span class="pre">get_patterned_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><span class="pre">CIT_DataPatterned</span></a></span></span><a class="headerlink" href="#GLDF.data_management.IManageData.get_patterned_data" title="Link to this definition"></a></dt>
+<dd><p>Get CIT-data with attached pattern-information.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Details on patterns are provided at <a class="reference internal" href="cit_data_patterned.html#label-patterns"><span class="std std-ref">Patterns</span></a>.
+Details on cache-IDs are given at <a class="reference internal" href="#label-cache-ids"><span class="std std-ref">Cache IDs</span></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – The CI identified by its variable indices.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The CIT-data with attached pattern-provider.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned">CIT_DataPatterned</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.IManageData.number_of_variables">
+<span class="sig-name descname"><span class="pre">number_of_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.IManageData.number_of_variables" title="Link to this definition"></a></dt>
+<dd><p>Get the number of variables (as used e.g. by PCMCI) in the current data-set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of (contemporaneous) variables.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.IManageData.total_sample_size">
+<span class="sig-name descname"><span class="pre">total_sample_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.IManageData.total_sample_size" title="Link to this definition"></a></dt>
+<dd><p>Get the total sample-size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sample-size</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.IManageData.reproject_blocks">
+<span class="sig-name descname"><span class="pre">reproject_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_per_block</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#GLDF.data_management.IManageData.reproject_blocks" title="Link to this definition"></a></dt>
+<dd><p>Project function-values given on blocks back to original data-layout for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value_per_block</strong> (<em>np.ndarray</em>) – function-values taken on blocks</p></li>
+<li><p><strong>block_configuration</strong> (<a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><em>BlockView</em></a>) – the block-layout (e.g. block-size)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the function-values taken in the original index-space.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="cache-ids">
+<span id="label-cache-ids"></span><h2>Cache IDs<a class="headerlink" href="#cache-ids" title="Link to this heading"></a></h2>
+<p>It is, for good runtime performance, often helpful to cache test-results at different stages.
+The <a class="reference internal" href="../frontend.html#module-GLDF.frontend" title="GLDF.frontend: User frontend for GLDF framework."><code class="xref py py-mod docutils literal notranslate"><span class="pre">frontend</span></code></a> provides simple ways to inject cache-layers at different points of
+the framework, and the sample-configurations provided in the frontend also do so.</p>
+<p>As the input data to the framework can (and is) typically be assumed immutable,
+results can be cached relative to test-indeces. It is the responsibility of the
+data-manager (and the custom pattern-provider), to provide unique cache-ids
+for queries: Given two <a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_Data" title="GLDF.data_management.CIT_Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_Data</span></code></a> objects provided by the same
+data-manager, they may have the same cache-id only if they contain the same data.
+It is in practice usually possible to employ the test-index (plus requested block-size
+for <a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockView</span></code></a> objects). The current built-in implementation additionally
+prefixes the test-index by the data-manager object’s memory address to prevent potential
+issues when using multiple data-managers with the same cache-layer.
+If cache will be writen to files or execution is parallelized accross multiple
+processes, it may be reasonable to include an initial-data hash (computed once at program
+initialization) instead of a memory address.</p>
+<ul class="simple">
+<li><p>When implementing a custom data-manager (exposing <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a>),
+the implementation of <a class="reference internal" href="#GLDF.data_management.IManageData.get_patterned_data" title="GLDF.data_management.IManageData.get_patterned_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IManageData.get_patterned_data()</span></code></a> has to write
+a cache-id to the output that uniquely identifies the produced <a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_Data" title="GLDF.data_management.CIT_Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_Data</span></code></a>.
+This cache-id will typically be based on the data-manager’s object memory address
+(can be passed as the object itself in python) or data-hash and the
+<a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">CI_Identifier</span></code></a> argument.</p></li>
+<li><p>When implementing a custom pattern (extending <a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a>),
+the implemenation of <a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned.view_blocks" title="GLDF.data_management.CIT_DataPatterned.view_blocks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CIT_DataPatterned.view_blocks()</span></code></a> has to write
+a cache-id to the output that uniquely identifies the produced <a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockView</span></code></a>.
+This cache-id will typically be based on <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.cache_id</span></code> and
+the requested (or actual) block-size.</p></li>
+<li><p>When implementing a cachable test, you can (this should not typically be necessary
+if deriving from <a class="reference internal" href="../data_layer/cit_interfaces.html#GLDF.data_processing.ITestCI" title="GLDF.data_processing.ITestCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestCI</span></code></a> or
+<a class="reference internal" href="../composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a>)
+expose a method <code class="xref py py-meth docutils literal notranslate"><span class="pre">_extract_cache_id()</span></code> returning a
+cache-id for a given query. It is called with the query-name <code class="xref py py-obj docutils literal notranslate"><span class="pre">fname</span></code>
+(a string, the name of the method cached, e.g. ‘run_many’)
+as first argument and the run-time arguments of that method’s invokation
+as further arguments. See for example <a class="reference internal" href="../data_layer/cit_interfaces.html#GLDF.data_processing.ITestCI._extract_cache_id" title="GLDF.data_processing.ITestCI._extract_cache_id"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ITestCI</span></code></a>
+or <a class="reference internal" href="../composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a>
+which provide fallbacks for CITs and full backends.</p></li>
+</ul>
+<p>The cache-id has to be hashable and equality-comparable. Note that tuples of
+hashable and equality-comparable types are again hashable and equality-comparable.
+Further <a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">CI_Identifier</span></code></a>[<a class="reference internal" href="CI_ID.html#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var_index</span></code></a>] is hashable and equality-comparable
+if <a class="reference internal" href="CI_ID.html#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var_index</span></code></a> is.</p>
+</section>
+<section id="baseline-implementations">
+<h2>Baseline Implementations<a class="headerlink" href="#baseline-implementations" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_IID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DataManager_NumpyArray_IID</span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_IID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a></p>
+<p>Data-manager designed for use with IID data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_IID.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_indexed_by_sampleidx_variableidx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'GLDF.data_management.CIT_DataPatterned_PersistentInTime'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reproject_pattern_for_plotting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_IID.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_IID.get_patterned_data">
+<span class="sig-name descname"><span class="pre">get_patterned_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><span class="pre">CIT_DataPatterned</span></a></span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_IID.get_patterned_data" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a><em>.</em></p>
+<p>Get CIT-data with attached pattern-information.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Details on patterns are provided at <a class="reference internal" href="cit_data_patterned.html#label-patterns"><span class="std std-ref">Patterns</span></a>.
+Details on cache-IDs are given at <a class="reference internal" href="#label-cache-ids"><span class="std std-ref">Cache IDs</span></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – The CI identified by its variable indices.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The CIT-data with attached pattern-provider.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned">CIT_DataPatterned</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_IID.number_of_variables">
+<span class="sig-name descname"><span class="pre">number_of_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_IID.number_of_variables" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a><em>.</em></p>
+<p>Get the number of variables (as used e.g. by PCMCI) in the current data-set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of (contemporaneous) variables.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_IID.total_sample_size">
+<span class="sig-name descname"><span class="pre">total_sample_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_IID.total_sample_size" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a><em>.</em></p>
+<p>Get the total sample-size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sample-size</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_Timeseries">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DataManager_NumpyArray_Timeseries</span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_Timeseries" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a></p>
+<p>Data-manager designed for use with time-series data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_Timeseries.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_indexed_by_sampleidx_variableidx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'GLDF.data_management.CIT_DataPatterned_PersistentInTime'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reproject_pattern_for_plotting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_Timeseries.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_Timeseries.get_patterned_data">
+<span class="sig-name descname"><span class="pre">get_patterned_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier_TimeSeries" title="GLDF.data_management.CI_Identifier_TimeSeries"><span class="pre">CI_Identifier_TimeSeries</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><span class="pre">CIT_DataPatterned</span></a></span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_Timeseries.get_patterned_data" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a><em>.</em></p>
+<p>Get CIT-data with attached pattern-information.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Details on patterns are provided at <a class="reference internal" href="cit_data_patterned.html#label-patterns"><span class="std std-ref">Patterns</span></a>.
+Details on cache-IDs are given at <a class="reference internal" href="#label-cache-ids"><span class="std std-ref">Cache IDs</span></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – The CI identified by its variable indices.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The CIT-data with attached pattern-provider.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="cit_data_patterned.html#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned">CIT_DataPatterned</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_Timeseries.number_of_variables">
+<span class="sig-name descname"><span class="pre">number_of_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_Timeseries.number_of_variables" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a><em>.</em></p>
+<p>Get the number of variables (as used e.g. by PCMCI) in the current data-set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of (contemporaneous) variables.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.DataManager_NumpyArray_Timeseries.total_sample_size">
+<span class="sig-name descname"><span class="pre">total_sample_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.DataManager_NumpyArray_Timeseries.total_sample_size" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><code class="xref py py-class docutils literal notranslate"><span class="pre">IManageData</span></code></a><em>.</em></p>
+<p>Get the total sample-size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sample-size</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="block_view.html" class="btn btn-neutral float-left" title="Block View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../layer_data_proc.html" class="btn btn-neutral float-right" title="Data Processing Layer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

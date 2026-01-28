@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Composition Layer &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Independence Atom Backend" href="composition_layer/compound_backend.html" />
+    <link rel="prev" title="Partial Correlation CIT" href="data_layer/cit_impl.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="frontend.html">Frontend</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data_mgmt.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Composition Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#independence-atom-backend">Independence Atom Backend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="composition_layer/compound_backend.html">Independence Atom Backend</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#state-space-construction">State Space Construction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="composition_layer/state_space_construction_spec.html">Specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="composition_layer/state_space_construction.html">Acyclic Union-Graphs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hccd-controller">HCCD Controller</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="composition_layer/controller.html">Controllers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#abstract-cd-specification">Abstract CD Specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract-cits">Abstract CITs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hccd.abstract_cit_t"><code class="docutils literal notranslate"><span class="pre">abstract_cit_t</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#graph-encoding">Graph Encoding</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hccd.graph_t"><code class="docutils literal notranslate"><span class="pre">graph_t</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#abstract-cd">Abstract CD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hccd.abstract_cd_t"><code class="docutils literal notranslate"><span class="pre">abstract_cd_t</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Composition Layer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/layer_composition.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-GLDF.hccd">
+<span id="composition-layer"></span><span id="label-composition-layer"></span><h1>Composition Layer<a class="headerlink" href="#module-GLDF.hccd" title="Link to this heading"></a></h1>
+<p>The composition layer contains code for controlling CD-algorithm execution
+based on extended independence-structure information to solve the
+compound-problem of hidden constext (context-specific) causal discovery
+(HCCD).</p>
+<section id="independence-atom-backend">
+<span id="label-composition-layer-backend"></span><h2>Independence Atom Backend<a class="headerlink" href="#independence-atom-backend" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<p>The composition layer operates (exclusively) on primitives exposed by the
+<a class="reference internal" href="layer_data_proc.html#module-GLDF.data_processing" title="GLDF.data_processing: Data processing layer."><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_processing</span></code></a> layer, with
+<a class="reference internal" href="data_mgmt.html#module-GLDF.data_management" title="GLDF.data_management: Specifications and helpers for data-management."><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_management</span></code></a> logically detached (accessed
+only thourgh the <a class="reference internal" href="layer_data_proc.html#module-GLDF.data_processing" title="GLDF.data_processing: Data processing layer."><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_processing</span></code></a> layer).</p>
+<p>The composition-layer specifies two interfaces to this end:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a> specifies functionality a compound
+backend has to forward from the <a class="reference internal" href="layer_data_proc.html#module-GLDF.data_processing" title="GLDF.data_processing: Data processing layer."><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_processing</span></code></a> layer.</p></li>
+<li><p><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">IHandleExplicitTransitionToMCI</span></code></a> specifies extensions for
+PCMCI-familiy time-series algortihms.</p></li>
+</ul>
+</section>
+<section id="state-space-construction">
+<h2>State Space Construction<a class="headerlink" href="#state-space-construction" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<p>The state-space construction is the second formal ingredient to HCCD.
+This modul specifies (for custom or future extension) what functionality
+a state-space construction strategy has to expose for use with HCCD.
+This includes:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="composition_layer/state_space_construction_spec.html#GLDF.hccd.IConstructStateSpace" title="GLDF.hccd.IConstructStateSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConstructStateSpace</span></code></a> specifies a state-space construction strategy</p></li>
+<li><p><a class="reference internal" href="composition_layer/state_space_construction_spec.html#GLDF.hccd.IRepresentStateSpace" title="GLDF.hccd.IRepresentStateSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentStateSpace</span></code></a> specifies what properties of a state-space have to
+be made available to HCCD</p></li>
+<li><p><a class="reference internal" href="composition_layer/state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentState</span></code></a> specifies what properties of a state have to
+be made available to HCCD</p></li>
+<li><p><a class="reference internal" href="composition_layer/state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPresentResult</span></code></a> what properties of a state-space-construction
+result have to be made available to HCCD</p></li>
+</ul>
+<p>Further the module <a class="reference internal" href="composition_layer/state_space_construction.html#module-GLDF.state_space_construction" title="GLDF.state_space_construction: Baseline state-space construction."><code class="xref py py-mod docutils literal notranslate"><span class="pre">state_space_construction</span></code></a> provides a baseline implementation
+of state-space-construction for acyclic union graphs:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="composition_layer/state_space_construction.html#GLDF.state_space_construction.NoUnionCycles" title="GLDF.state_space_construction.NoUnionCycles"><code class="xref py py-class docutils literal notranslate"><span class="pre">state_space_construction.NoUnionCycles</span></code></a>
+provides a baseline implemenation of state-space-construction for acyclic union-graphs.</p></li>
+<li><p><a class="reference internal" href="composition_layer/state_space_construction.html#GLDF.state_space_construction.ResolveByRepresentor" title="GLDF.state_space_construction.ResolveByRepresentor"><code class="xref py py-class docutils literal notranslate"><span class="pre">state_space_construction.ResolveByRepresentor</span></code></a>
+provides a preliminary/experimental implementation for representor-based indicator-resolution.</p></li>
+</ul>
+</section>
+<section id="hccd-controller">
+<h2>HCCD Controller<a class="headerlink" href="#hccd-controller" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<p>The HCCD controller coordinates (re)execution of CD-algorithm and state-space-construction,
+see §4.4 in <a class="reference internal" href="index.html#rr25" id="id1"><span>[RR25]</span></a>.
+There are currently three implemenations with increasing specialization:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="composition_layer/controller.html#GLDF.hccd.Controller" title="GLDF.hccd.Controller"><code class="xref py py-class docutils literal notranslate"><span class="pre">Controller</span></code></a> is suitable for general IID-algorithms.</p></li>
+<li><p><a class="reference internal" href="composition_layer/controller.html#GLDF.hccd.ControllerTimeseriesMCI" title="GLDF.hccd.ControllerTimeseriesMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControllerTimeseriesMCI</span></code></a> is suitable for PCMCI and PCMCI+.</p></li>
+<li><p><a class="reference internal" href="composition_layer/controller.html#GLDF.hccd.ControllerTimeseriesLPCMCI" title="GLDF.hccd.ControllerTimeseriesLPCMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControllerTimeseriesLPCMCI</span></code></a> is suitable for LPCMCI.</p></li>
+</ul>
+</section>
+<section id="abstract-cd-specification">
+<span id="label-abstract-cd"></span><h2>Abstract CD Specification<a class="headerlink" href="#abstract-cd-specification" title="Link to this heading"></a></h2>
+<p>Further, this module specifies how third-party or custom (IID or stationary) CD-algorithms
+may be exposed for direct use in the framework.</p>
+<section id="abstract-cits">
+<h3>Abstract CITs<a class="headerlink" href="#abstract-cits" title="Link to this heading"></a></h3>
+<p>Conditional independence-tests are abstracted as mappings from a CI-identifier
+<a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">CI_Identifier</span></code></a> to
+a boolean value indicating dependence (<code class="code highlight python docutils literal highlight-python"><span class="kc">True</span></code>) or independence (<code class="code highlight python docutils literal highlight-python"><span class="kc">False</span></code>).
+Thus an abstract cit in this sense presumes a compound (data-provider plus actual test)
+backend (cf. <a class="reference internal" href="composition_layer/compound_backend.html#label-compound-backend"><span class="std std-ref">Independence Atom Backend</span></a>).</p>
+<p>When implementing a custom CIT  (or wrapping a third-party implementation),
+it is usually correct to provide <a class="reference internal" href="data_layer/cit_interfaces.html#label-cit-interfaces"><span class="std std-ref">Interfaces for CIT implementations</span></a> instead.
+The <a class="reference internal" href="#GLDF.hccd.abstract_cit_t" title="GLDF.hccd.abstract_cit_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">abstract_cit_t</span></code></a> type should primarily be used when specifying custom
+CD-algorithms (see below).</p>
+<dl class="py type">
+<dt class="sig sig-object py" id="GLDF.hccd.abstract_cit_t">
+<span class="property"><span class="k"><span class="pre">type</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">abstract_cit_t</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#GLDF.hccd.abstract_cit_t" title="Link to this definition"></a></dt>
+<dd><p>Specifies the signature of abstract cits as used by CD-algorithms <a class="reference internal" href="#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">abstract_cd_t</span></code></a>.</p>
+</dd></dl>
+
+</section>
+<section id="graph-encoding">
+<h3>Graph Encoding<a class="headerlink" href="#graph-encoding" title="Link to this heading"></a></h3>
+<p>Graphs are output in tigramite-format:</p>
+<ul class="simple">
+<li><p>Given <span class="math notranslate nohighlight">\(k\)</span> variables of IID
+data, the graph is a shape <span class="math notranslate nohighlight">\((k,k)\)</span> numpy array.
+The entry at <code class="code highlight python docutils literal highlight-python"><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span></code> is the edge from index <code class="code highlight python docutils literal highlight-python"><span class="n">i</span></code>
+to index <code class="code highlight python docutils literal highlight-python"><span class="n">j</span></code>. Below we refer to ‘from’ as left-hand-side (lhs),
+and to ‘to’ as right-hand-side (rhs).
+The encoding is anti-symmetric, i.e. the edge from <code class="code highlight python docutils literal highlight-python"><span class="n">i</span></code> to <code class="code highlight python docutils literal highlight-python"><span class="n">j</span></code>
+is the mirrored edge from <code class="code highlight python docutils literal highlight-python"><span class="n">j</span></code> to <code class="code highlight python docutils literal highlight-python"><span class="n">i</span></code> (see edge-encodings below).</p></li>
+<li><p>Given <span class="math notranslate nohighlight">\(k\)</span> variables of time-series data
+with maximum timelag <span class="math notranslate nohighlight">\(\tau_{\text{max}}\)</span>,
+the graph is a shape <span class="math notranslate nohighlight">\((k,k,\tau_{\text{max}})\)</span> numpy array.
+This encodes a (time-)window-graph:
+The entry at <code class="code highlight python docutils literal highlight-python"><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">t</span><span class="p">]</span></code> is the edge from index <code class="code highlight python docutils literal highlight-python"><span class="n">i</span></code>
+to index <code class="code highlight python docutils literal highlight-python"><span class="n">j</span></code> at time-lag <code class="code highlight python docutils literal highlight-python"><span class="n">t</span></code>.
+The ‘slice’ at <code class="code highlight python docutils literal highlight-python"><span class="n">t</span><span class="o">=</span><span class="mi">0</span></code> (and in general only at <code class="code highlight python docutils literal highlight-python"><span class="n">t</span><span class="o">=</span><span class="mi">0</span></code>) is anti-symmetric.</p></li>
+</ul>
+<p>In both cases the numpy arrays contain 3-character strings (numpy <code class="code highlight python docutils literal highlight-python"><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;&lt;U3&#39;</span></code>),
+such that:</p>
+<ul class="simple">
+<li><p>If the string is empty <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;&quot;</span></code>, there is no edge, otherwise the middle character is
+a minus <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;*-*&quot;</span></code>.</p></li>
+<li><p>If the edge is <em>into</em> the rhs (lhs) node, the rhs (lhs) character is an arrowhead
+<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;*-&gt;&quot;</span></code> (<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;&lt;-*&quot;</span></code>).</p></li>
+<li><p>If the edge is <em>out of</em> (but not into) the lhs (rhs) node, the lhs (rhs) character is
+a minus <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;--*&quot;</span></code> (<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;*--&quot;</span></code>).</p></li>
+<li><p>If it could not be determined if the edge is <em>into</em> or <em>out of</em> the lhs (rhs) node,
+the character on the lhs (rhs) side is a letter ‘o’ (as a circle) <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;o-*&quot;</span></code>
+(<code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;*-o&quot;</span></code>).</p></li>
+<li><p>If inconsistencies are detected (contradicting edge-marks are deduced in the same place),
+the potentially dubious edgemark is replaced by a letter ‘x’ (as a cross), e.g. <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;x-*&quot;</span></code>
+(or <code class="code highlight python docutils literal highlight-python"><span class="s2">&quot;*-x&quot;</span></code>).</p></li>
+</ul>
+<dl class="py type">
+<dt class="sig sig-object py" id="GLDF.hccd.graph_t">
+<span class="property"><span class="k"><span class="pre">type</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">graph_t</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#GLDF.hccd.graph_t" title="Link to this definition"></a></dt>
+<dd><p>Used to annotate graphs in tigramite-format.</p>
+</dd></dl>
+
+</section>
+<section id="abstract-cd">
+<h3>Abstract CD<a class="headerlink" href="#abstract-cd" title="Link to this heading"></a></h3>
+<p>Constraint-based causal discovery is abstracted as a mapping from a lazily evaluated
+independence structure (represented by abstract CITs, see <a class="reference internal" href="#GLDF.hccd.abstract_cit_t" title="GLDF.hccd.abstract_cit_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">abstract_cit_t</span></code></a>)
+to a graph (in tigramite-format, see <a class="reference internal" href="#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">graph_t</span></code></a>).
+Thus an abstract CD simply is a function (more generally: a callable object),
+taking an argument of type <a class="reference internal" href="#GLDF.hccd.abstract_cit_t" title="GLDF.hccd.abstract_cit_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">abstract_cit_t</span></code></a>
+and returning a <a class="reference internal" href="#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">graph_t</span></code></a>. Most third-party implemenations of CD-algorithms
+(see <a class="reference internal" href="bridges.html#module-GLDF.bridges" title="GLDF.bridges: Bridges for third-party package integration."><code class="xref py py-mod docutils literal notranslate"><span class="pre">bridges</span></code></a> for examples) can readily be wrapped
+to satisfy this format.</p>
+<dl class="py type">
+<dt class="sig sig-object py" id="GLDF.hccd.abstract_cd_t">
+<span class="property"><span class="k"><span class="pre">type</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">abstract_cd_t</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.hccd.abstract_cit_t" title="GLDF.hccd.abstract_cit_t"><span class="pre">abstract_cit_t</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#GLDF.hccd.abstract_cd_t" title="Link to this definition"></a></dt>
+<dd><p>Specifies the signature of abstract CD-algorithms.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data_layer/cit_impl.html" class="btn btn-neutral float-left" title="Partial Correlation CIT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="composition_layer/compound_backend.html" class="btn btn-neutral float-right" title="Independence Atom Backend" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

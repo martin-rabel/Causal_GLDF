@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patterns &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Block View" href="block_view.html" />
+    <link rel="prev" title="Variable IDs" href="CI_ID.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../frontend.html">Frontend</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../data_mgmt.html">Data Management</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../data_mgmt.html#indexing-and-cit-identifiers">Indexing and CIT Identifiers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../data_mgmt.html#data-representation">Data Representation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Patterns</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#custom-patterns">Custom Patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#baseline-patterns">Baseline Patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#underlying-data">Underlying Data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="block_view.html">Block View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../data_mgmt.html#data-manager">Data Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../layer_composition.html">Composition Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../data_mgmt.html">Data Management</a></li>
+      <li class="breadcrumb-item active">Patterns</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/data_mgmt/cit_data_patterned.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="patterns">
+<span id="label-patterns"></span><h1>Patterns<a class="headerlink" href="#patterns" title="Link to this heading"></a></h1>
+<p>Patterns describe prior knowledge about likely regime-structures, for example temporal persistence.
+We provide an extension-point for the easy customization of patterns through a derived class
+of <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a>, and provide simple baseline implemenations for temporally
+or spatially persistent regime-structure.</p>
+<section id="custom-patterns">
+<h2>Custom Patterns<a class="headerlink" href="#custom-patterns" title="Link to this heading"></a></h2>
+<p>Custom patterns can be provided by deriving from <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a> and implementing
+at least</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned.view_blocks" title="GLDF.data_management.CIT_DataPatterned.view_blocks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CIT_DataPatterned.view_blocks()</span></code></a> (desribing the actual prior assumption).
+This is the main actual input to provide. Given an integer <code class="xref py py-obj docutils literal notranslate"><span class="pre">block_size</span></code>, we have to
+subdivide the data into “blocks” of approximately size <code class="xref py py-obj docutils literal notranslate"><span class="pre">block_size</span></code> (to avoid
+degeneracies, it is recommended to round up, rather than down, if necessary).
+A block is considered “valid” if all its data-points were generated in the same (true)
+regime, otherwise it is “invalid”. In this notation, the subdivision into blocks should
+be such that blocks are valid with high probability (while satisfying the block-size requirement).
+This encodes prior knowledge about the system: For example, it is often plausible to assume
+that regimes in time-series are persistent in time (switch rarely). In this case choosing blocks
+as (contiguous) intervals in time makes sense, as then for each (of the presumably few)
+switches, at most one block is invalidated. Blocks are currently considered disjoint.
+For providing a cache-id, see <a class="reference internal" href="data_managers.html#label-cache-ids"><span class="std std-ref">Cache IDs</span></a>.</p></li>
+<li><p><a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned.reproject_blocks" title="GLDF.data_management.CIT_DataPatterned.reproject_blocks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CIT_DataPatterned.reproject_blocks()</span></code></a> (reprojecting a function evaluated on blocks back
+to the original index-set/-layout for plotting) and</p></li>
+<li><p><a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned.get_actual_block_format" title="GLDF.data_management.CIT_DataPatterned.get_actual_block_format"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CIT_DataPatterned.get_actual_block_format()</span></code></a> (also used for plotting, typically trivial).</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CIT_DataPatterned</span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.data_management.CIT_Data" title="GLDF.data_management.CIT_Data"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_Data</span></code></a></p>
+<p>Patterned data for mCIT.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Pattern-related aspects are to be overwritten by custom pattern providers,
+for example <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned_PersistentInTime" title="GLDF.data_management.CIT_DataPatterned_PersistentInTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned_PersistentInTime</span></code></a> or
+<a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned_PesistentInSpace" title="GLDF.data_management.CIT_DataPatterned_PesistentInSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned_PesistentInSpace</span></code></a>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.__init__" title="Link to this definition"></a></dt>
+<dd><p>Construct from raw data. Typcially the user should use <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned.clone_from_data" title="GLDF.data_management.CIT_DataPatterned.clone_from_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">clone_from_data()</span></code></a>
+(preserving the derived type, thus pattern specifications) instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.view_blocks">
+<span class="sig-name descname"><span class="pre">view_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.view_blocks" title="Link to this definition"></a></dt>
+<dd><p>View as blocks of given size. The layout of blocks encodes the (prior) knowledge about patterns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>block_size</strong> (<em>int</em>) – requested block-size (the block-size of the result may not exactly match this number,
+if the underlying pattern provider cannot construct arbitrary block-sizes).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>view as pattern-aligned blocks</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView">BlockView</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.get_actual_block_format">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_actual_block_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requested_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.get_actual_block_format" title="Link to this definition"></a></dt>
+<dd><p>Get the actual (possibly multi-dimensional) format of blocks produced. Used for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>requested_size</strong> (<em>int</em>) – The size of blocks requested.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Format of blocks produced.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int|tuple[int,…]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.reproject_blocks">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">reproject_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_per_block</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.reproject_blocks" title="Link to this definition"></a></dt>
+<dd><p>Reproject a function <span class="math notranslate nohighlight">\(f\)</span> on blocks to the original index-set layout (for example time, space etc). Used for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value_per_block</strong> (<em>np.ndarray</em>) – values of <span class="math notranslate nohighlight">\(f\)</span> for each block</p></li>
+<li><p><strong>block_configuration</strong> (<a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><em>BlockView</em></a>) – the block-configuration (eg block-size) used</p></li>
+<li><p><strong>data_configuration</strong> (<em>tuple</em><em>[</em><em>int</em><em>,</em><em>...</em><em>]</em>) – the data-shape (per-variable) in the original data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>plottable layout of <span class="math notranslate nohighlight">\(f\)</span> as function of the original index-space</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.sample_count">
+<span class="sig-name descname"><span class="pre">sample_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.sample_count" title="Link to this definition"></a></dt>
+<dd><p>Get sample size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sample-size N</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.z_dim">
+<span class="sig-name descname"><span class="pre">z_dim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.z_dim" title="Link to this definition"></a></dt>
+<dd><p>Get dimension (number of variables) of conditioning set Z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dim(Z)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.copy_and_center">
+<span class="sig-name descname"><span class="pre">copy_and_center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><span class="pre">CIT_DataPatterned</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.copy_and_center" title="Link to this definition"></a></dt>
+<dd><p>Copy and subtract mean.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>centered copy</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned">CIT_DataPatterned</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.view_blocks_trivial">
+<span class="sig-name descname"><span class="pre">view_blocks_trivial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.view_blocks_trivial" title="Link to this definition"></a></dt>
+<dd><p>View as trivial blocks (a single block of size N).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>view by trivial blocks</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView">BlockView</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.view_blocks_match">
+<span class="sig-name descname"><span class="pre">view_blocks_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.view_blocks_match" title="Link to this definition"></a></dt>
+<dd><p>View as blocks matching configuration (block-sizes etc) of another block-view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><em>BlockView</em></a>) – The other block-view, whose configuration should be copied.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A block-view of the data with same configuration as :param other:.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView">BlockView</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.bootstrap_unaligned_blocks">
+<span class="sig-name descname"><span class="pre">bootstrap_unaligned_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Generator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bootstrap_block_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.bootstrap_unaligned_blocks" title="Link to this definition"></a></dt>
+<dd><p>Bootstrap random (unaligned) blocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rng</strong> (<em>np.random.Generator</em><em> (or </em><em>similar</em><em>, </em><em>requires .integers</em><em> of </em><em>numpy.random.Generator</em><em>)</em>) – A random number generator.</p></li>
+<li><p><strong>bootstrap_block_count</strong> (<em>int</em>) – Number of blocks to bootstrap</p></li>
+<li><p><strong>block_size</strong> (<em>int</em>) – Size per block</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A the bootstrapped blocks (actually a copy, not a view)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView">BlockView</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned.clone_from_data">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">clone_from_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><span class="pre">CIT_DataPatterned</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned.clone_from_data" title="Link to this definition"></a></dt>
+<dd><p>Attach the currently used pattern-provider to given data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) – X-data</p></li>
+<li><p><strong>Y</strong> (<em>np.ndarray</em>) – Y-data</p></li>
+<li><p><strong>Z</strong> (<em>np.ndarray</em>) – Z-data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Patterned data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>decltype(self), a type derived from <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="baseline-patterns">
+<h2>Baseline Patterns<a class="headerlink" href="#baseline-patterns" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The class <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned_PersistentInTime" title="GLDF.data_management.CIT_DataPatterned_PersistentInTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned_PersistentInTime</span></code></a> provides an implementation
+for one-dimensional persistent patterns, for example persistent-in-time regimes.</p></li>
+<li><p>The class <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned_PesistentInSpace" title="GLDF.data_management.CIT_DataPatterned_PesistentInSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned_PesistentInSpace</span></code></a> provides an implementation
+for two-dimensional persistent patterns, for example persistent-in-space regimes.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PersistentInTime">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CIT_DataPatterned_PersistentInTime</span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PersistentInTime" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a></p>
+<p>Patterned data for mCIT. The implemented pattern captures persistent regimes in a single (eg time) direction.</p>
+<div class="line-block">
+<div class="line">x_data has shape=(N), where N is sample-size</div>
+<div class="line">y_data has shape=(N), where N is sample-size</div>
+<div class="line">z_data has shape=(N,k), where N is sample-size and k=dim(Z)</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#label-patterns"><span class="std std-ref">overview on custom patterns</span></a>.
+Methods are specified and documented on <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PersistentInTime.view_blocks">
+<span class="sig-name descname"><span class="pre">view_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PersistentInTime.view_blocks" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a><em>.</em></p>
+<p>View as blocks of given size. The layout of blocks encodes the (prior) knowledge about patterns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>block_size</strong> (<em>int</em>) – requested block-size (the block-size of the result may not exactly match this number,
+if the underlying pattern provider cannot construct arbitrary block-sizes).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>view as pattern-aligned blocks</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView">BlockView</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PersistentInTime.get_actual_block_format">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_actual_block_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requested_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PersistentInTime.get_actual_block_format" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a><em>.</em></p>
+<p>Get the actual (possibly multi-dimensional) format of blocks produced. Used for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>requested_size</strong> (<em>int</em>) – The size of blocks requested.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Format of blocks produced.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int|tuple[int,…]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PersistentInTime.reproject_blocks">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">reproject_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_per_block</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PersistentInTime.reproject_blocks" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a><em>.</em></p>
+<p>Reproject a function <span class="math notranslate nohighlight">\(f\)</span> on blocks to the original index-set layout (for example time, space etc). Used for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value_per_block</strong> (<em>np.ndarray</em>) – values of <span class="math notranslate nohighlight">\(f\)</span> for each block</p></li>
+<li><p><strong>block_configuration</strong> (<a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><em>BlockView</em></a>) – the block-configuration (eg block-size) used</p></li>
+<li><p><strong>data_configuration</strong> (<em>tuple</em><em>[</em><em>int</em><em>,</em><em>...</em><em>]</em>) – the data-shape (per-variable) in the original data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>plottable layout of <span class="math notranslate nohighlight">\(f\)</span> as function of the original index-space</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PesistentInSpace">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CIT_DataPatterned_PesistentInSpace</span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PesistentInSpace" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a></p>
+<p>Patterned data for mCIT. The implemented pattern captures persistent regimes in two (eg spatial) direction.</p>
+<div class="line-block">
+<div class="line">x_data has shape=(w,h), where w, h are the width and height of the sample-grid.</div>
+<div class="line">y_data has shape=(w,h), where w, h are the width and height of the sample-grid.</div>
+<div class="line">z_data has shape=(w,h,k), where w, h are the width and height of the sample-grid, and k=dim(Z)</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="#label-patterns"><span class="std std-ref">overview on custom patterns</span></a>.
+Methods are specified and documented on <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PesistentInSpace.get_actual_block_format">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_actual_block_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requested_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PesistentInSpace.get_actual_block_format" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a><em>.</em></p>
+<p>Get the actual (possibly multi-dimensional) format of blocks produced. Used for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>requested_size</strong> (<em>int</em>) – The size of blocks requested.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Format of blocks produced.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int|tuple[int,…]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PesistentInSpace.view_blocks">
+<span class="sig-name descname"><span class="pre">view_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PesistentInSpace.view_blocks" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a><em>.</em></p>
+<p>View as blocks of given size. The layout of blocks encodes the (prior) knowledge about patterns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>block_size</strong> (<em>int</em>) – requested block-size (the block-size of the result may not exactly match this number,
+if the underlying pattern provider cannot construct arbitrary block-sizes).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>view as pattern-aligned blocks</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView">BlockView</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_DataPatterned_PesistentInSpace.reproject_blocks">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">reproject_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_per_block</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_DataPatterned_PesistentInSpace.reproject_blocks" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a><em>.</em></p>
+<p>Reproject a function <span class="math notranslate nohighlight">\(f\)</span> on blocks to the original index-set layout (for example time, space etc). Used for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value_per_block</strong> (<em>np.ndarray</em>) – values of <span class="math notranslate nohighlight">\(f\)</span> for each block</p></li>
+<li><p><strong>block_configuration</strong> (<a class="reference internal" href="block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><em>BlockView</em></a>) – the block-configuration (eg block-size) used</p></li>
+<li><p><strong>data_configuration</strong> (<em>tuple</em><em>[</em><em>int</em><em>,</em><em>...</em><em>]</em>) – the data-shape (per-variable) in the original data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>plottable layout of <span class="math notranslate nohighlight">\(f\)</span> as function of the original index-space</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="underlying-data">
+<h2>Underlying Data<a class="headerlink" href="#underlying-data" title="Link to this heading"></a></h2>
+<p>Data is currently stored in numpy-arrays, whose shape depends on the data-manager used:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_Data">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CIT_Data</span></span><a class="headerlink" href="#GLDF.data_management.CIT_Data" title="Link to this definition"></a></dt>
+<dd><p>Data for CIT.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Used through <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a>.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_Data.x_data">
+<span class="sig-name descname"><span class="pre">x_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#GLDF.data_management.CIT_Data.x_data" title="Link to this definition"></a></dt>
+<dd><p>Shape specified by data-manager/pattern-provider. See <a class="reference internal" href="#GLDF.data_management.CIT_DataPatterned" title="GLDF.data_management.CIT_DataPatterned"><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT_DataPatterned</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_Data.y_data">
+<span class="sig-name descname"><span class="pre">y_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#GLDF.data_management.CIT_Data.y_data" title="Link to this definition"></a></dt>
+<dd><p>Same shape as x_data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_Data.z_data">
+<span class="sig-name descname"><span class="pre">z_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#GLDF.data_management.CIT_Data.z_data" title="Link to this definition"></a></dt>
+<dd><p>Shape=(shape_xy,k), where shape_xy is the shape of x_data/y_data and k=dim(Z) is the size of the conditioning set.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_Data.cache_id">
+<span class="sig-name descname"><span class="pre">cache_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#GLDF.data_management.CIT_Data.cache_id" title="Link to this definition"></a></dt>
+<dd><p>Unique identifier associated to the data by the data-manager, to be used for caching results. None to disable caching.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CIT_Data.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.data_management.CIT_Data.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CI_ID.html" class="btn btn-neutral float-left" title="Variable IDs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="block_view.html" class="btn btn-neutral float-right" title="Block View" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

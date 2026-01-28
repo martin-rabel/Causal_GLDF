@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GLDF: Non-Homogeneous Causal Graph Discovery &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frontend" href="frontend.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="frontend.html">Frontend</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_mgmt.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_composition.html">Composition Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">GLDF: Non-Homogeneous Causal Graph Discovery</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-GLDF">
+<span id="gldf-non-homogeneous-causal-graph-discovery"></span><h1>GLDF: Non-Homogeneous Causal Graph Discovery<a class="headerlink" href="#module-GLDF" title="Link to this heading"></a></h1>
+<p>This is the reference implementation of the framework described by <a class="reference internal" href="#rr25" id="id1"><span>[RR25]</span></a>
+for causal graph discovery on non-homogeneous data.</p>
+<figure class="align-default" id="id4">
+<a class="reference internal image-reference" href="_images/output_example.png"><img alt="sample-output plus interpretation" src="_images/output_example.png" style="width: 616.1999999999999px; height: 250.79999999999998px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="#rr25" id="id2"><span>[RR25]</span></a>, Fig. 1.1:
+On the left-hand side (a), the framework’s output is shown (see tutorial 1 below).
+Primary focus so far is the (labeled/colored) graph on the very left.
+The right-hand side (b) illustrates, how the model is described by different
+causal graphs in different regions of space.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Algorithms for causal graph discovery (CD) on IID or stationary data are readily
+available. However, real-world data rarely is IID or stationary.
+This framework particularly aims to find ways in which a causal graph
+<em>changes</em> over time, space or patterns in other extraneous information attached
+to data. It does so by focusing on an approach that is local in the graph (gL)
+and testing qualitative questions directly (D), hence the name gLD-framework
+(GLDF).</p>
+<p>Besides statistical efficiency, another major strength of this approach
+is its modularity. This allows the present framework to directly
+build on existing CD-algorithm implementations.
+At the same time, almost arbitrary “patterns” generalizing persistence
+in time or space can be leveraged to account for regime-structure.
+The framework extensively builds on modified conditional independence tests
+(CITs), where individual (or all) modifications can easily be customized
+if the need arises.</p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<p>The framework works with many algorithms from the
+<a class="reference external" href="https://github.com/jakobrunge/tigramite/">tigramite</a>
+and <a class="reference external" href="https://causal-learn.readthedocs.io/en/latest/">causal-learn</a>
+python packages out of the box.
+We recommend the user to install at least one of these.</p>
+<p>This documentation describes the code of the code-repository
+<a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF">github.com/martin-rabel/Causal_GLDF</a>.</p>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h3>
+<p>Installation instructions will follow soon.</p>
+</section>
+<section id="dependencies">
+<span id="label-dependencies"></span><h3>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h3>
+<p>Beyond python (version 3.10 or newer, tested on 3.13.5) and the python standard-library,
+this package requires:</p>
+<ul class="simple">
+<li><p>numpy (version 2.0.0 or newer, tested on 2.3.2)</p></li>
+<li><p>scipy (version 1.10.0 or newer, tested on 1.16.1)</p></li>
+</ul>
+<p>For easy and direct access to plotting functionality:</p>
+<ul class="simple">
+<li><p>matplotlib (version 3.7.0 or newer, tested on 3.10.5)</p></li>
+<li><p>tigramite (version 5.2.0.0 or newer, tested on 5.2.8.2)</p></li>
+</ul>
+<p>For easy and direct access to causal discovery algorithms:</p>
+<ul class="simple">
+<li><p>tigramite (time-series algorithms; version see above)</p></li>
+<li><p>causal-learn (IID algorithms; tested on version 0.1.4.3)</p></li>
+</ul>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h3>
+<p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code> is a numpy array of shape <span class="math notranslate nohighlight">\((N, k)\)</span> for <span class="math notranslate nohighlight">\(k\)</span> variables
+and a sample-size of <span class="math notranslate nohighlight">\(N\)</span>, then
+a simple analysis assuming time-series data and persistent in time regimes
+can be run out of the box using <a class="reference internal" href="frontend.html#GLDF.frontend.run_hccd_temporal_regimes" title="GLDF.frontend.run_hccd_temporal_regimes"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_hccd_temporal_regimes</span></code></a> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">GLDF</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">GLDF</span><span class="o">.</span><span class="n">run_hccd_temporal_regimes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is structured as python object (see <a class="reference internal" href="frontend.html#GLDF.frontend.Result" title="GLDF.frontend.Result"><code class="xref py py-class docutils literal notranslate"><span class="pre">frontend.Result</span></code></a>)
+with easy-to-use visualization and inspection functionality.
+Let’s say <span class="math notranslate nohighlight">\(k=4\)</span> and the variables should be labeled <span class="math notranslate nohighlight">\(X, Y, Z, W\)</span>
+in the plot (not providing variable names will use indices instead),
+then for example the method
+<a class="reference internal" href="frontend.html#GLDF.frontend.Result.plot_labeled_union_graph" title="GLDF.frontend.Result.plot_labeled_union_graph"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_labeled_union_graph</span></code></a>
+produces a plot of the labeled union-graph:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">result</span><span class="o">.</span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span><span class="p">]</span>
+<span class="n">result</span><span class="o">.</span><span class="n">plot_labeled_union_graph</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Similarly, the individual model-indicators (changing links) can be further inspected as
+<a class="reference internal" href="frontend.html#GLDF.frontend.Result.model_indicators" title="GLDF.frontend.Result.model_indicators"><code class="xref py py-meth docutils literal notranslate"><span class="pre">model_indicators</span></code></a>,
+for example via the method <a class="reference internal" href="frontend.html#GLDF.frontend.ResolvableModelIndicator.plot_resolution" title="GLDF.frontend.ResolvableModelIndicator.plot_resolution"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_resolution</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">mi</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">model_indicators</span><span class="p">():</span>
+   <span class="n">mi</span><span class="o">.</span><span class="n">plot_resolution</span><span class="p">()</span>
+   <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>See also the tutorials below for a more detailed start.</p>
+</section>
+<section id="tutorials">
+<h3>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading"></a></h3>
+<p>We provide short <a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF/tree/main/tutorials">tutorials</a> on the use and customization of our framework in the form of jupyter-notebooks:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF/blob/main/tutorials/01_preconfigured_quickstart.ipynb">Quickstart</a>: Using preconfigured setups for time-series or 2D spatial data.</p></li>
+<li><p><a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF/blob/main/tutorials/02_detailed_configuration.ipynb">Detailed Configuration</a>: Change modules, their parameters and other aspects of a setup.</p></li>
+<li><p><a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF/blob/main/tutorials/03_custom_patterns.ipynb">Custom Patterns</a>: A quick intro describing the definition of user-defined patterns.</p></li>
+</ol>
+<p>The tutorials assume the full <a class="reference internal" href="#label-dependencies"><span class="std std-ref">Dependencies</span></a> are available (including matplotlib, tigramite and causal-learn).</p>
+</section>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This documentation and the framework are divided into two main parts:</p>
+<ul class="simple">
+<li><p>The backend contains code implementing functionality required for the framework
+in a modular way. The documentation of the backend in particular contains
+detailed information on what features are implemented where and how to
+customize individual modules. This typically includes a specification
+of each given (sub-)component in the form of a documented interface
+(following the naming convention of starting with a capital ‘I’ for interface
+followed by a verb expressing what the component generally does).
+The backend is primarily of interest to the user who wants to
+substantially customize and extend the functionality of the framework itself.</p></li>
+<li><p>The frontend contains code that satisfies simple user-queries by assembling
+backend-components in a suitable way.
+The frontend is primariy of interest to the user who wants to
+interact with the features provided by the framework in a simple way
+through higher level (non-modular) tasks, like end-to-end analysis
+of provided data.</p></li>
+</ul>
+<section id="frontend">
+<h3>Frontend<a class="headerlink" href="#frontend" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="frontend.html">Frontend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#preconfigured-execution">Preconfigured Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#structured-output">Structured Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#customized-configurations">Customized Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#module-GLDF.hyperparams">Hyper-Parameter Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html#independence-atom-backends">Independence Atom Backends</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="backend">
+<h3>Backend<a class="headerlink" href="#backend" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_mgmt.html">Data Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_mgmt.html#indexing-and-cit-identifiers">Indexing and CIT Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_mgmt.html#data-representation">Data Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_mgmt.html#data-manager">Data Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="layer_data_proc.html">Data Processing Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="layer_data_proc.html#test-implementations">Test implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layer_data_proc.html#interfaces-for-custom-stages">Interfaces for Custom Stages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layer_data_proc.html#cit-implementations">CIT Implementations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="layer_composition.html">Composition Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="layer_composition.html#independence-atom-backend">Independence Atom Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layer_composition.html#state-space-construction">State Space Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layer_composition.html#hccd-controller">HCCD Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layer_composition.html#abstract-cd-specification">Abstract CD Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="post_processing.html">Post-Processing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="post_processing.html#specification">Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="post_processing.html#implementations">Implementations</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="bridges">
+<h3>Bridges<a class="headerlink" href="#bridges" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bridges.html">Bridges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bridges.html#module-GLDF.bridges.tigramite">Tigramite Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridges.html#module-GLDF.bridges.causal_learn">Causal Learn Integration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="roadmap">
+<h2>Roadmap<a class="headerlink" href="#roadmap" title="Link to this heading"></a></h2>
+<p>Features currently under consideration for future versions.
+If you want to contribute or have suggestions for improvements,
+feel free to use github’s features or contact us directly.</p>
+<ul class="simple">
+<li><p>Systematic unit-testing, also for simple sanity-checking of custom implementations.</p></li>
+<li><p>Allow marked tests to “mark” for aspects other than “independent regimes”,
+e.g. heterogeneity (which is already tested anyway), and aggregate per link results
+(e.g. consider the <em>link</em> heterogeneous, if <em>all</em> tests on the link [for all conditioning sets]
+are reported heterogeneous)</p></li>
+<li><p>Prepare for easier and (computationally and statistically) efficient integration
+of non-linear tests.</p></li>
+<li><p>Integrate with JCI/CD-NOD like arguments for obtaining additional orientation information.</p></li>
+<li><p>Make state-space-construction more robust for large models by exploiting graphical constraints.</p></li>
+<li><p>Extend post-processing for statistically more meaningful indicator-resolution
+(potentially including confidence-assessment).</p></li>
+</ul>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
+<p>Please cite as:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@article{rabel2025context,
+   title={Context-Specific Causal Graph Discovery with Unobserved Contexts:
+      Non-Stationarity, Regimes and Spatio-Temporal Patterns},
+   author={Rabel, Martin and Runge, Jakob},
+   journal={arXiv preprint arXiv:2511.21537},
+   year={2025},
+   url={https://arxiv.org/abs/2511.21537},
+   doi={10.48550/arXiv.2511.21537}
+}
+</pre></div>
+</div>
+</section>
+<section id="literature">
+<h2>Literature<a class="headerlink" href="#literature" title="Link to this heading"></a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="rr25" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>RR25<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>M. Rabel, J. Runge.
+Context-Specific Causal Graph Discovery with Unobserved Contexts: Non-Stationarity, Regimes and Spatio-Temporal Patterns.
+<em>archive preprint</em> <a class="reference external" href="https://arxiv.org/abs/2511.21537">arXiv:2511.21537</a>, 2025.</p>
+</div>
+<div class="citation" id="rnk-19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>RNK+19<span class="fn-bracket">]</span></span>
+<p>J. Runge, P. Nowack, M. Kretschmer, S. Flaxman, D. Sejdinovic.
+Detecting and quantifying causal associations in large nonlinear time series datasets. <a class="reference external" href="https://advances.sciencemag.org/content/5/11/eaau4996">Sci. Adv. 5, eaau4996</a>, 2019.</p>
+</div>
+<div class="citation" id="r20" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>R20<span class="fn-bracket">]</span></span>
+<p>J. Runge.
+Discovering contemporaneous and lagged causal relations in autocorrelated nonlinear time series datasets.
+<a class="reference external" href="http://auai.org/uai2020/proceedings/579_main_paper.pdf">Proceedings of the 36th Conference on Uncertainty in Artificial Intelligence</a>,
+UAI 2020, Toronto, Canada, 2019, AUAI Press, 2020.</p>
+</div>
+<div class="citation" id="gr20" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>GR20<span class="fn-bracket">]</span></span>
+<p>A. Gerhardus, J. Runge.
+High-recall causal discovery for autocorrelated time series with latent confounders.
+<a class="reference external" href="https://proceedings.neurips.cc/paper/2020/hash/94e70705efae423efda1088614128d0b-Abstract.html">Advances in Neural Information Processing Systems 33</a>, 2020.</p>
+</div>
+<div class="citation" id="sgs01" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>SGS01<span class="fn-bracket">]</span></span>
+<p>P. Spirtes, C. Glymour, and R. Scheines.
+Causation, prediction, and search. MIT press, 2001.</p>
+</div>
+<div class="citation" id="sg91" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>SG91<span class="fn-bracket">]</span></span>
+<p>P. Spirtes, C. Glymour.
+An algorithm for fast recovery of sparse causal graphs.
+Social Science Computer Review, 9:62–72, 1991.</p>
+</div>
+<div class="citation" id="cm-14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CM+14<span class="fn-bracket">]</span></span>
+<p>D. Colombo, M. H. Maathuis, et al.
+Order-independent constraint-based causal structure learning.
+J. Mach. Learn. Res., 15(1):3741–3782, 2014.</p>
+</div>
+<div class="citation" id="zhc-24" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ZHC+24<span class="fn-bracket">]</span></span>
+<p>Y. Zheng, B. Huang, W. Chen, J. Ramsey, M. Gong, R. Cai, S. Shimizu, P. Spirtes, and K. Zhang.
+<a class="reference external" href="https://causal-learn.readthedocs.io/en/latest/index.html">Causal-learn: Causal discovery in python</a>.
+Journal of Machine Learning Research, 25(60):1–8, 2024.</p>
+</div>
+</div>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>Copyright (C) 2025-2026 Martin Rabel</p>
+<p>GNU General Public License v3.0</p>
+<p>See license.txt in the code-repository for full text.</p>
+<p>This package is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This package is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="frontend.html" class="btn btn-neutral float-right" title="Frontend" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

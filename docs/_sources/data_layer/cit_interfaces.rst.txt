@@ -1,0 +1,31 @@
+.. _label-cit-interfaces:
+
+Interfaces for CIT implementations
+----------------------------------
+
+.. py:currentmodule:: GLDF.data_processing
+
+.. autoclass:: ITestCI()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+.. automethod:: ITestCI._extract_cache_id
+
+
+.. autoclass:: IProvideAnalyticQuantilesForCIT()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: IProvideVarianceForCIT()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:

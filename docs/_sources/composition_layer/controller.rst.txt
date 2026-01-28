@@ -1,0 +1,25 @@
+Controllers
+-----------
+
+.. py:currentmodule:: GLDF.hccd
+
+
+.. autoclass:: Controller()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: ControllerTimeseriesMCI()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: ControllerTimeseriesLPCMCI()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:

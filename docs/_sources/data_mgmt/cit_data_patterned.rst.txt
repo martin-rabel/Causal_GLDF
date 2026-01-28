@@ -1,0 +1,85 @@
+.. _label-patterns:
+
+Patterns
+--------
+
+.. py:currentmodule:: GLDF.data_management
+
+Patterns describe prior knowledge about likely regime-structures, for example temporal persistence.
+We provide an extension-point for the easy customization of patterns through a derived class
+of :py:class:`CIT_DataPatterned`, and provide simple baseline implemenations for temporally
+or spatially persistent regime-structure.
+
+
+Custom Patterns
+^^^^^^^^^^^^^^^
+
+Custom patterns can be provided by deriving from :py:class:`CIT_DataPatterned` and implementing
+at least
+
+*   :py:meth:`CIT_DataPatterned.view_blocks` (desribing the actual prior assumption).
+    This is the main actual input to provide. Given an integer :py:obj:`block_size`, we have to
+    subdivide the data into "blocks" of approximately size :py:obj:`block_size` (to avoid
+    degeneracies, it is recommended to round up, rather than down, if necessary).
+    A block is considered "valid" if all its data-points were generated in the same (true)
+    regime, otherwise it is "invalid". In this notation, the subdivision into blocks should
+    be such that blocks are valid with high probability (while satisfying the block-size requirement).
+    This encodes prior knowledge about the system: For example, it is often plausible to assume
+    that regimes in time-series are persistent in time (switch rarely). In this case choosing blocks
+    as (contiguous) intervals in time makes sense, as then for each (of the presumably few)
+    switches, at most one block is invalidated. Blocks are currently considered disjoint.
+    For providing a cache-id, see :ref:`label-cache-ids`.
+*   :py:meth:`CIT_DataPatterned.reproject_blocks` (reprojecting a function evaluated on blocks back
+    to the original index-set/-layout for plotting) and
+*   :py:meth:`CIT_DataPatterned.get_actual_block_format` (also used for plotting, typically trivial).
+
+
+
+.. autoclass:: CIT_DataPatterned()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+    
+    .. automethod:: __init__
+
+        Construct from raw data. Typcially the user should use :py:meth:`clone_from_data`
+        (preserving the derived type, thus pattern specifications) instead.
+
+
+
+
+
+Baseline Patterns
+^^^^^^^^^^^^^^^^^
+
+*   The class :py:class:`CIT_DataPatterned_PersistentInTime` provides an implementation
+    for one-dimensional persistent patterns, for example persistent-in-time regimes.
+*   The class :py:class:`CIT_DataPatterned_PesistentInSpace` provides an implementation
+    for two-dimensional persistent patterns, for example persistent-in-space regimes.
+
+.. autoclass:: CIT_DataPatterned_PersistentInTime()
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+    
+.. autoclass:: CIT_DataPatterned_PesistentInSpace()
+    :class-doc-from: class
+    :show-inheritance:
+    :members:
+    :undoc-members:
+
+
+
+Underlying Data
+^^^^^^^^^^^^^^^
+
+Data is currently stored in numpy-arrays, whose shape depends on the data-manager used:
+
+.. autoclass:: CIT_Data()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:

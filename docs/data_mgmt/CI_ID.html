@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variable IDs &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Patterns" href="cit_data_patterned.html" />
+    <link rel="prev" title="Data Management" href="../data_mgmt.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../frontend.html">Frontend</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../data_mgmt.html">Data Management</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../data_mgmt.html#indexing-and-cit-identifiers">Indexing and CIT Identifiers</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Variable IDs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.data_management.var_index"><code class="docutils literal notranslate"><span class="pre">var_index</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cit-identifiers">CIT Identifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.data_management.CI_Identifier"><code class="docutils literal notranslate"><span class="pre">CI_Identifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cit-identifiers-timeseries">CIT Identifiers Timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.data_management.CI_Identifier_TimeSeries"><code class="docutils literal notranslate"><span class="pre">CI_Identifier_TimeSeries</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../data_mgmt.html#data-representation">Data Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_mgmt.html#data-manager">Data Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../layer_composition.html">Composition Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../data_mgmt.html">Data Management</a></li>
+      <li class="breadcrumb-item active">Variable IDs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/data_mgmt/CI_ID.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="variable-ids">
+<h1>Variable IDs<a class="headerlink" href="#variable-ids" title="Link to this heading"></a></h1>
+<p>CITs are identified relative to variables involved. The variables
+themselves may be addressed by any totally ordered (wrt the less-equal operator)
+hashable type for example integers or tuples of integers.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="GLDF.data_management.var_index">
+<span class="sig-name descname"><span class="pre">var_index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TypeVar</span></span><a class="headerlink" href="#GLDF.data_management.var_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="cit-identifiers">
+<h1>CIT Identifiers<a class="headerlink" href="#cit-identifiers" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CI_Identifier</span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var_index</span></code></a>]</p>
+<p>A multi-index defining a conditional independence-statement</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The index type <a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var_index</span></code></a> must be comparable (totally ordered) and hashable, eg int or tuple of int,
+type-annotations are given for the type-var var_index; for time-series, see also <a class="reference internal" href="#GLDF.data_management.CI_Identifier_TimeSeries" title="GLDF.data_management.CI_Identifier_TimeSeries"><code class="xref py py-class docutils literal notranslate"><span class="pre">CI_Identifier_TimeSeries</span></code></a>.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier.var_index">
+<span class="sig-name descname"><span class="pre">var_index</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">var_index</span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier.var_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><span class="pre">var_index</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><span class="pre">var_index</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_list_z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><span class="pre">var_index</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.data_management.CI_Identifier.__init__" title="Link to this definition"></a></dt>
+<dd><p>Construct representation of CIT for single-variables X, Y and a list of indices for the variables in
+the set of conditios Z. The representation is undirected and for a (logical) set Z:
+Reordering X and Y or changing the order in the list of inices for Z will result in the same
+representation, see also <a class="reference internal" href="#GLDF.data_management.CI_Identifier.__hash__" title="GLDF.data_management.CI_Identifier.__hash__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__hash__()</span></code></a> and <a class="reference internal" href="#GLDF.data_management.CI_Identifier.__eq__" title="GLDF.data_management.CI_Identifier.__eq__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__eq__()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idx_x</strong> (<a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><em>var_index</em></a>) – Index of variable X</p></li>
+<li><p><strong>idx_y</strong> (<a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><em>var_index</em></a>) – Index of variable Y</p></li>
+<li><p><strong>idx_list_z</strong> (<em>list</em><em>[</em><a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><em>var_index</em></a><em>]</em>) – List of indices of variables in set of conditions Z.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier.undirected_link">
+<span class="sig-name descname"><span class="pre">undirected_link</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><span class="pre">var_index</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><span class="pre">var_index</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier.undirected_link" title="Link to this definition"></a></dt>
+<dd><p>Get the associated (undirected) link as a tuple.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The associated undirected link.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[<a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index">var_index</a>,<a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index">var_index</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier.__hash__" title="Link to this definition"></a></dt>
+<dd><p>Hash for unordered containers (dict, set).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A hash value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier.__eq__" title="Link to this definition"></a></dt>
+<dd><p>Equality compare two CI-identifiers as undirected (X and Y are exchangable) test
+with a set (order does not matter) of condtions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – Other CI-Identifier to compare to.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Equality</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier.z_dim">
+<span class="sig-name descname"><span class="pre">z_dim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier.z_dim" title="Link to this definition"></a></dt>
+<dd><p>Get dimension of (number of variables in) conditioning set Z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dim(Z)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier.conditioning_set">
+<span class="sig-name descname"><span class="pre">conditioning_set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index"><span class="pre">var_index</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier.conditioning_set" title="Link to this definition"></a></dt>
+<dd><p>Get the conditioning set Z (as set).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Z</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>set[<a class="reference internal" href="#GLDF.data_management.var_index" title="GLDF.data_management.var_index">var_index</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="cit-identifiers-timeseries">
+<h1>CIT Identifiers Timeseries<a class="headerlink" href="#cit-identifiers-timeseries" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier_TimeSeries">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CI_Identifier_TimeSeries</span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier_TimeSeries" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">CI_Identifier</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</p>
+<p>A multi-index defining a conditional independence-statement for timeseries,
+using tigramite’s indexing-convention: Individual nodes are indexed by a
+pair (index, -lag).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.data_management.CI_Identifier_TimeSeries.max_abs_timelag">
+<span class="sig-name descname"><span class="pre">max_abs_timelag</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.data_management.CI_Identifier_TimeSeries.max_abs_timelag" title="Link to this definition"></a></dt>
+<dd><p>Get the maximum (abolute) time-lag of any variable involved in the test.
+This means, the maximum over -lag for the lags stored in X, Y or any member of Z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximum absolute time-lag.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../data_mgmt.html" class="btn btn-neutral float-left" title="Data Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cit_data_patterned.html" class="btn btn-neutral float-right" title="Patterns" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

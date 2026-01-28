@@ -1,0 +1,15 @@
+.. py:module:: GLDF.cit
+    :synopsis: CIT implementations.
+
+Partial Correlation CIT
+-----------------------
+
+.. py:currentmodule:: GLDF.cit
+
+.. autoclass:: ParCorr()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:

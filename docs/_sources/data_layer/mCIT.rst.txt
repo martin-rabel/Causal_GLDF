@@ -1,0 +1,14 @@
+Marked Independence Test
+------------------------
+
+See [RR25]_ §5 and §D for details.
+
+.. py:currentmodule:: GLDF.data_processing
+
+.. autoclass:: mCIT()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:

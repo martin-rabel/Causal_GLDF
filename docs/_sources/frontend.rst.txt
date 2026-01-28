@@ -1,0 +1,170 @@
+Frontend
+========
+
+.. py:currentmodule:: GLDF.frontend
+
+.. py:module:: GLDF.frontend
+    :synopsis: User frontend for GLDF framework.
+
+The module :py:mod:`!frontend` provides predefined configurations of the modular
+:py:mod:`GLDF` backend. This includes general purpose hyper-parameter sets :py:mod:`hyperparameters<GLDF.hyperparameters>`.
+
+
+
+Preconfigured Execution
+-----------------------
+
+.. autofunction:: run_hccd_temporal_regimes
+
+.. autofunction:: run_hccd_spatial_regimes
+
+
+Structured Output
+-----------------
+
+Running HCCD through the frontend will produce structured results
+that bundle the output of the backend with convenience functions
+for post-processing (in particular approximate indicator resolution)
+and plotting.
+
+
+.. autoclass:: Result    
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+    
+.. autoclass:: ResolvableModelIndicator    
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+By default the union-graph is color-labeled, using colors from:
+
+.. autodata:: color_scheme
+
+
+
+Customized Configurations
+-------------------------
+
+Basic configurations of the backend can be described through the
+:py:class:`ConfigureHCCD` class. The configurations of
+:py:func:`run_hccd_temporal_regimes` and
+:py:func:`run_hccd_spatial_regimes` (see above) are available
+as templates through:
+
+.. autofunction:: configure_hccd_temporal_regimes
+
+.. autofunction:: configure_hccd_spatial_regimes
+
+Besides the members of a :py:class:`ConfigureHCCD` instance,
+also its methods of the form "get\_something" are intended to be overwritten
+(externally by monkey-patching or by defining a derived class).
+Running the configuration through its :py:meth:`ConfigureHCCD.run` method
+automatically ensures these getters are executed exactely once and cached.
+
+.. autoclass:: ConfigureHCCD    
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+Internally, this uses one or multiple (for PCMCI-family algorithms)
+backends configured similarly through:
+
+.. autoclass:: ConfigureBackend
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+These configuration-classes are based on :py:class:`Config`, which 
+provides convenience features for making produced values unique
+(execute getters at most once).
+
+.. autoclass:: Config
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+
+Hyper-Parameter Sets
+--------------------
+
+.. py:currentmodule:: GLDF.hyperparams
+
+.. py:module:: GLDF.hyperparams
+    :synopsis: Generic hyper-parameter sets.
+
+If substantial prior knowledge concering the regime-structure is available
+the user may want to provide their own hyper-parameter sets as specified
+in :ref:`label-hyperparam-interfaces`.
+For generic cases and a partial correlation test,
+we provide two preconfigured hyper-parameter sets
+(one for generic regimes, one for large regimes; numerical experiments
+suggest that especially for time-series data the one for large regimes
+currently often leads to better results). These are available
+in :py:mod:`hyperparams<GLDF.hyperparams>`.
+Details can be found in §D.3.4 and §D.4.6 of [RR25]_.
+
+.. autoclass:: Hyperparams_HomogeneityBinomial_ParCorr
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+.. autoclass:: Hyperparams_WeakInterval_ParCorr
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+Independence Atom Backends
+--------------------------
+
+While :py:mod:`data_management<GLDF.data_management>` and
+:py:mod:`data_processing<GLDF.data_processing>` are implemented modular
+and independent of each other, the :ref:`label-composition-layer`
+accesses only :py:mod:`data_processing<GLDF.data_processing>` primitives
+directly (see :ref:`label-composition-layer-backend`).
+Such a independence-atom backend is provided in :py:mod:`independence_atoms<GLDF.independence_atoms>`
+(for IID and time-series respectively) by:
+
+.. py:module:: GLDF.independence_atoms
+    :synopsis: Frontend/composed backend for data-management and independence-atoms.
+
+.. py:currentmodule:: GLDF.independence_atoms
+
+
+.. autoclass:: IndependenceAtoms_Backend
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: IndependenceAtoms_TimeSeries
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :undoc-members:

@@ -1,0 +1,37 @@
+.. py:currentmodule:: GLDF.data_management
+
+Variable IDs
+------------
+
+CITs are identified relative to variables involved. The variables
+themselves may be addressed by any totally ordered (wrt the less-equal operator)
+hashable type for example integers or tuples of integers.
+
+.. py:data:: var_index
+    :type: TypeVar
+
+
+CIT Identifiers
+---------------
+
+.. autoclass:: CI_Identifier()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__, __hash__, __eq__
+    :members:
+    :undoc-members:
+
+
+
+CIT Identifiers Timeseries
+--------------------------
+
+
+.. autoclass:: CI_Identifier_TimeSeries()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance: 
+    :special-members: __init__, __hash__, __eq__
+    :members:
+    :undoc-members:

@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Processing Layer &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Marked Independence Test" href="data_layer/mCIT.html" />
+    <link rel="prev" title="Details on Data Managers" href="data_mgmt/data_managers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="frontend.html">Frontend</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data_mgmt.html">Data Management</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Processing Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#test-implementations">Test implementations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/mCIT.html">Marked Independence Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/homogeneity_test.html">Homogeneity Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/weak_regime_test.html">Weak-Regime Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/indicator_relation_test.html">Indicator-Relation Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/truncated_normal.html">Truncated Normal Distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interfaces-for-custom-stages">Interfaces for Custom Stages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/cit_interfaces.html">Interfaces for CIT implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/component_interfaces.html">Interfaces for mCIT Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/hyperparam_interfaces.html">Interfaces for Hyper-Parameter Sets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cit-implementations">CIT Implementations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data_layer/cit_impl.html">Partial Correlation CIT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="layer_composition.html">Composition Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Processing Layer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/layer_data_proc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-GLDF.data_processing">
+<span id="data-processing-layer"></span><span id="label-data-processing-layer"></span><h1>Data Processing Layer<a class="headerlink" href="#module-GLDF.data_processing" title="Link to this heading"></a></h1>
+<p>The module <code class="xref py py-mod docutils literal notranslate"><span class="pre">data_processing</span></code> provides implementations for the marked independence atoms:
+mCITs and indicator relations, and their sub-components.
+Additionally, it specifies interfaces that custom implementations of an underlying CIT, homogeneity
+test or weak-regime test should expose.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The conditional independence test (CIT) implementations themselves are logically also part
+of the data processing layer. Considering that CIT-implementations, similar to underlying
+CD-algorithms, will typically be employed from third-party sources, the partial correlation
+implementation currently included with this code is factored into the separate file
+<a class="reference internal" href="data_layer/cit_impl.html#module-GLDF.cit" title="GLDF.cit: CIT implementations."><code class="xref py py-mod docutils literal notranslate"><span class="pre">cit</span></code></a>. Details on the specification and implementation of custom CITs
+(or integration of third-party implementations) can be found at <a class="reference internal" href="data_layer/cit_interfaces.html#label-cit-interfaces"><span class="std std-ref">Interfaces for CIT implementations</span></a>.</p>
+</div>
+<section id="test-implementations">
+<h2>Test implementations<a class="headerlink" href="#test-implementations" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><p>The class <a class="reference internal" href="data_layer/mCIT.html#GLDF.data_processing.mCIT" title="GLDF.data_processing.mCIT"><code class="xref py py-class docutils literal notranslate"><span class="pre">mCIT</span></code></a> composes an underlying CIT (exposing <a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.ITestCI" title="GLDF.data_processing.ITestCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestCI</span></code></a>),
+a homogeneity test (exposing <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestHomogeneity" title="GLDF.data_processing.ITestHomogeneity"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestHomogeneity</span></code></a>) and a weak-regime test
+(exposing <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestWeakRegime" title="GLDF.data_processing.ITestWeakRegime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestWeakRegime</span></code></a>) into a regime-marked conditional independence test
+(mCIT), providing <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI" title="GLDF.data_processing.ITestMarkedCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestMarkedCI</span></code></a>, as described by §5 of <a class="reference internal" href="index.html#rr25" id="id1"><span>[RR25]</span></a>.</p></li>
+<li><p>The class <a class="reference internal" href="data_layer/homogeneity_test.html#GLDF.data_processing.Homogeneity_Binomial" title="GLDF.data_processing.Homogeneity_Binomial"><code class="xref py py-class docutils literal notranslate"><span class="pre">Homogeneity_Binomial</span></code></a> provides a homogeneity test (as specified by
+<a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestHomogeneity" title="GLDF.data_processing.ITestHomogeneity"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestHomogeneity</span></code></a>) based on a binomal test with block-quantiles,
+as described by §5.2.2 of <a class="reference internal" href="index.html#rr25" id="id2"><span>[RR25]</span></a>.</p></li>
+<li><p>The class <a class="reference internal" href="data_layer/weak_regime_test.html#GLDF.data_processing.WeakRegime_AcceptanceInterval" title="GLDF.data_processing.WeakRegime_AcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeakRegime_AcceptanceInterval</span></code></a> provides a weak-regime test
+(as specified by <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestWeakRegime" title="GLDF.data_processing.ITestWeakRegime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestWeakRegime</span></code></a>) based on the acceptance-interval method,
+as described by §5.2.3 of <a class="reference internal" href="index.html#rr25" id="id3"><span>[RR25]</span></a>.</p></li>
+<li><p>The class <a class="reference internal" href="data_layer/indicator_relation_test.html#GLDF.data_processing.IndicatorImplication_AcceptanceInterval" title="GLDF.data_processing.IndicatorImplication_AcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndicatorImplication_AcceptanceInterval</span></code></a> provides a indicator-implication
+test based on the acceptance-interval method,
+as described by §D.4.7 of <a class="reference internal" href="index.html#rr25" id="id4"><span>[RR25]</span></a>.</p></li>
+<li><p>The helper <a class="reference internal" href="data_layer/truncated_normal.html#GLDF.data_processing.TruncatedNormal" title="GLDF.data_processing.TruncatedNormal"><code class="xref py py-class docutils literal notranslate"><span class="pre">TruncatedNormal</span></code></a> provides some basic properties of truncated normal
+distributions, used by the acceptance-interval tests.</p></li>
+</ul>
+</section>
+<section id="interfaces-for-custom-stages">
+<span id="label-interfaces-custom-data-proc"></span><h2>Interfaces for Custom Stages<a class="headerlink" href="#interfaces-for-custom-stages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><p>The underlying CIT implementations can provide information through different interfaces:</p>
+<ul>
+<li><p>The interface <a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.ITestCI" title="GLDF.data_processing.ITestCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestCI</span></code></a> is mandatory, it specifies how to expose CI-testing
+functionality itself.</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.IProvideAnalyticQuantilesForCIT" title="GLDF.data_processing.IProvideAnalyticQuantilesForCIT"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideAnalyticQuantilesForCIT</span></code></a> is optional (if not implemented,
+quantiles will be bootstrapped), it specifies how to provide quantile-estimates for
+a specific CIT. It is required only for <a class="reference internal" href="data_layer/homogeneity_test.html#GLDF.data_processing.Homogeneity_Binomial" title="GLDF.data_processing.Homogeneity_Binomial"><code class="xref py py-class docutils literal notranslate"><span class="pre">Homogeneity_Binomial</span></code></a>.</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.IProvideVarianceForCIT" title="GLDF.data_processing.IProvideVarianceForCIT"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideVarianceForCIT</span></code></a> is manatory, it specifies how to
+provide variance-estimates for a specific CIT. It is required only for
+<a class="reference internal" href="data_layer/weak_regime_test.html#GLDF.data_processing.WeakRegime_AcceptanceInterval" title="GLDF.data_processing.WeakRegime_AcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeakRegime_AcceptanceInterval</span></code></a> and <a class="reference internal" href="data_layer/indicator_relation_test.html#GLDF.data_processing.IndicatorImplication_AcceptanceInterval" title="GLDF.data_processing.IndicatorImplication_AcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndicatorImplication_AcceptanceInterval</span></code></a>.</p></li>
+</ul>
+</li>
+<li><p>The interface <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI" title="GLDF.data_processing.ITestMarkedCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestMarkedCI</span></code></a> specifies how to provide a custom marked conditional independence
+test.</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestHomogeneity" title="GLDF.data_processing.ITestHomogeneity"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestHomogeneity</span></code></a> specifies how to provide a custom homogeneity test.</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestWeakRegime" title="GLDF.data_processing.ITestWeakRegime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestWeakRegime</span></code></a> specifies how to provide a custom weak-regime test.</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestIndicatorImplications" title="GLDF.data_processing.ITestIndicatorImplications"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITestIndicatorImplications</span></code></a> specifies how to provide a custom indicator-relation test.</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForRobustCIT" title="GLDF.data_processing.IProvideHyperparamsForRobustCIT"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideHyperparamsForRobustCIT</span></code></a> specifies how to provide N and dim(Z)
+dependent hyper-parameter sets for robust CI testing (cf. <a class="reference internal" href="data_layer/mCIT.html#GLDF.data_processing.mCIT.__init__" title="GLDF.data_processing.mCIT.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mCIT.__init__()</span></code></a>).</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForBinomial" title="GLDF.data_processing.IProvideHyperparamsForBinomial"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideHyperparamsForBinomial</span></code></a> specifies how to provide N and dim(Z)
+dependent hyper-parameter sets for <a class="reference internal" href="data_layer/homogeneity_test.html#GLDF.data_processing.Homogeneity_Binomial" title="GLDF.data_processing.Homogeneity_Binomial"><code class="xref py py-class docutils literal notranslate"><span class="pre">Homogeneity_Binomial</span></code></a>.</p></li>
+<li><p>The interface <a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval" title="GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideHyperparamsForAcceptanceInterval</span></code></a> specifies how to provide N and dim(Z)
+dependent hyper-parameter sets for <a class="reference internal" href="data_layer/weak_regime_test.html#GLDF.data_processing.WeakRegime_AcceptanceInterval" title="GLDF.data_processing.WeakRegime_AcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeakRegime_AcceptanceInterval</span></code></a> and
+<a class="reference internal" href="data_layer/indicator_relation_test.html#GLDF.data_processing.IndicatorImplication_AcceptanceInterval" title="GLDF.data_processing.IndicatorImplication_AcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndicatorImplication_AcceptanceInterval</span></code></a>.</p></li>
+</ul>
+</section>
+<section id="cit-implementations">
+<h2>CIT Implementations<a class="headerlink" href="#cit-implementations" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<p>We currently include an implementation for z-score represented partial correlation as
+<a class="reference internal" href="data_layer/cit_impl.html#GLDF.cit.ParCorr" title="GLDF.cit.ParCorr"><code class="xref py py-class docutils literal notranslate"><span class="pre">cit.ParCorr</span></code></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data_mgmt/data_managers.html" class="btn btn-neutral float-left" title="Details on Data Managers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data_layer/mCIT.html" class="btn btn-neutral float-right" title="Marked Independence Test" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

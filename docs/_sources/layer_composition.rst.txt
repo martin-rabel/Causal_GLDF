@@ -1,0 +1,175 @@
+.. _label-composition-layer:
+
+Composition Layer
+=================
+
+.. py:currentmodule:: GLDF.hccd
+
+.. py:module:: GLDF.hccd
+    :synopsis: Composition layer.
+
+
+The composition layer contains code for controlling CD-algorithm execution
+based on extended independence-structure information to solve the
+compound-problem of hidden constext (context-specific) causal discovery
+(HCCD).
+
+
+.. _label-composition-layer-backend:
+
+Independence Atom Backend
+-------------------------
+
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   composition_layer/compound_backend
+
+The composition layer operates (exclusively) on primitives exposed by the
+:py:mod:`data_processing<GLDF.data_processing>` layer, with
+:py:mod:`data_management<GLDF.data_management>` logically detached (accessed
+only thourgh the :py:mod:`data_processing<GLDF.data_processing>` layer).
+
+The composition-layer specifies two interfaces to this end:
+
+*   :py:class:`IProvideIndependenceAtoms` specifies functionality a compound
+    backend has to forward from the :py:mod:`data_processing<GLDF.data_processing>` layer.
+*   :py:class:`IHandleExplicitTransitionToMCI` specifies extensions for
+    PCMCI-familiy time-series algortihms.
+
+
+State Space Construction
+------------------------
+
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   composition_layer/state_space_construction_spec
+   composition_layer/state_space_construction
+
+The state-space construction is the second formal ingredient to HCCD.
+This modul specifies (for custom or future extension) what functionality
+a state-space construction strategy has to expose for use with HCCD.
+This includes:
+
+*   :py:class:`IConstructStateSpace` specifies a state-space construction strategy
+*   :py:class:`IRepresentStateSpace` specifies what properties of a state-space have to
+    be made available to HCCD
+*   :py:class:`IRepresentState` specifies what properties of a state have to
+    be made available to HCCD
+*   :py:class:`IPresentResult` what properties of a state-space-construction
+    result have to be made available to HCCD
+
+Further the module :py:mod:`state_space_construction<GLDF.state_space_construction>` provides a baseline implementation
+of state-space-construction for acyclic union graphs:
+
+*   :py:class:`state_space_construction.NoUnionCycles<GLDF.state_space_construction.NoUnionCycles>`
+    provides a baseline implemenation of state-space-construction for acyclic union-graphs.
+*   :py:class:`state_space_construction.ResolveByRepresentor<GLDF.state_space_construction.ResolveByRepresentor>`
+    provides a preliminary/experimental implementation for representor-based indicator-resolution.
+
+
+HCCD Controller
+---------------
+
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   composition_layer/controller
+
+The HCCD controller coordinates (re)execution of CD-algorithm and state-space-construction,
+see §4.4 in [RR25]_\ .
+There are currently three implemenations with increasing specialization:
+
+*   :py:class:`Controller` is suitable for general IID-algorithms.
+*   :py:class:`ControllerTimeseriesMCI` is suitable for PCMCI and PCMCI+.
+*   :py:class:`ControllerTimeseriesLPCMCI` is suitable for LPCMCI.
+
+
+.. _label-abstract-cd:
+
+Abstract CD Specification
+-------------------------
+
+Further, this module specifies how third-party or custom (IID or stationary) CD-algorithms
+may be exposed for direct use in the framework.
+
+.. role:: python(code)
+   :language: python
+
+Abstract CITs
+^^^^^^^^^^^^^
+
+Conditional independence-tests are abstracted as mappings from a CI-identifier
+:py:class:`CI_Identifier<GLDF.data_management.CI_Identifier>` to
+a boolean value indicating dependence (:python:`True`) or independence (:python:`False`).
+Thus an abstract cit in this sense presumes a compound (data-provider plus actual test)
+backend (cf. :ref:`label-compound-backend`).
+
+When implementing a custom CIT  (or wrapping a third-party implementation),
+it is usually correct to provide :ref:`label-cit-interfaces` instead.
+The :py:type:`abstract_cit_t` type should primarily be used when specifying custom
+CD-algorithms (see below).
+
+.. autotype:: abstract_cit_t
+
+Graph Encoding
+^^^^^^^^^^^^^^
+
+Graphs are output in tigramite-format:
+
+*   Given :math:`k` variables of IID
+    data, the graph is a shape :math:`(k,k)` numpy array.
+    The entry at :python:`[i,j]` is the edge from index :python:`i`
+    to index :python:`j`. Below we refer to 'from' as left-hand-side (lhs),
+    and to 'to' as right-hand-side (rhs).
+    The encoding is anti-symmetric, i.e. the edge from :python:`i` to :python:`j`
+    is the mirrored edge from :python:`j` to :python:`i` (see edge-encodings below).
+*   Given :math:`k` variables of time-series data
+    with maximum timelag :math:`\tau_{\text{max}}`,
+    the graph is a shape :math:`(k,k,\tau_{\text{max}})` numpy array.
+    This encodes a (time-)window-graph:
+    The entry at :python:`[i,j,t]` is the edge from index :python:`i`
+    to index :python:`j` at time-lag :python:`t`.
+    The 'slice' at :python:`t=0` (and in general only at :python:`t=0`) is anti-symmetric.
+
+In both cases the numpy arrays contain 3-character strings (numpy :python:`dtype='\<U3'`),
+such that:
+
+*   If the string is empty :python:`""`, there is no edge, otherwise the middle character is
+    a minus :python:`"*-*"`.
+*   If the edge is *into* the rhs (lhs) node, the rhs (lhs) character is an arrowhead
+    :python:`"*-\>"` (:python:`"\<-*"`).
+*   If the edge is *out of* (but not into) the lhs (rhs) node, the lhs (rhs) character is
+    a minus :python:`"--*"` (:python:`"*--"`).
+*   If it could not be determined if the edge is *into* or *out of* the lhs (rhs) node,
+    the character on the lhs (rhs) side is a letter 'o' (as a circle) :python:`"o-*"`
+    (:python:`"*-o"`).
+*   If inconsistencies are detected (contradicting edge-marks are deduced in the same place),
+    the potentially dubious edgemark is replaced by a letter 'x' (as a cross), e.g. :python:`"x-*"`
+    (or :python:`"*-x"`).
+
+
+
+.. autotype:: graph_t
+
+
+Abstract CD
+^^^^^^^^^^^
+
+Constraint-based causal discovery is abstracted as a mapping from a lazily evaluated
+independence structure (represented by abstract CITs, see :py:type:`abstract_cit_t`)
+to a graph (in tigramite-format, see :py:type:`graph_t`).
+Thus an abstract CD simply is a function (more generally: a callable object),
+taking an argument of type :py:type:`abstract_cit_t`
+and returning a :py:type:`graph_t`. Most third-party implemenations of CD-algorithms
+(see :py:mod:`bridges<GLDF.bridges>` for examples) can readily be wrapped
+to satisfy this format.
+
+.. autotype:: abstract_cd_t

@@ -1,0 +1,12 @@
+Truncated Normal Distribution
+-----------------------------
+
+.. py:currentmodule:: GLDF.data_processing
+
+.. autoclass:: TruncatedNormal()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :inherited-members:
+    :undoc-members:

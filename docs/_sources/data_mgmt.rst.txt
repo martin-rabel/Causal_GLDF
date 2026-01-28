@@ -1,0 +1,97 @@
+Data Management
+===============
+
+.. py:currentmodule:: GLDF.data_management
+
+.. py:module:: GLDF.data_management
+    :synopsis: Specifications and helpers for data-management.
+
+The module :py:mod:`!data_management` specifies interfaces for data and pattern exposition.
+It also provides simple baseline implementations of these specifications for basic scenarios
+like time-series with persistent in time regimes or spatial neighborhood patterns.
+
+
+.. _label-indexing:
+
+Indexing and CIT Identifiers
+----------------------------
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   data_mgmt/CI_ID
+
+*   Variables can be indexed differently for different data-managers. For example we identify
+    variables in an IID setup :py:class:`DataManager_NumpyArray_IID` by their integer index,
+    but in a time-series setup :py:class:`DataManager_NumpyArray_Timeseries` by a tuple
+    of the form (variable index, time-lag). This degree of freedom in indexing is
+    abstracted by a :py:class:`TypeVar` :py:obj:`var_index`.
+*   Independence tests can be indexed relative to the variables involved.
+    The class :py:class:`CI_Identifier`\ [\ :py:obj:`var_index`\ ] encodes index information disregarding orientation,
+    i.e. independence-tests are assumed symmetric and invariant under permutation of the conditioning
+    set. :py:class:`CI_Identifier`\ [\ :py:obj:`var_index`\ ] is typed and documented as generic class relative to the
+    variable-indexing :py:obj:`var_index` used.
+*   The specialization :py:class:`CI_Identifier_TimeSeries` of
+    :py:class:`CI_Identifier`\ [\ :py:type:`tuple`\ [\ :py:type:`int`\ ,\ :py:type:`int`\ ]]
+    implements the same functionality
+    for time-series data (here indexing keeps track of relative time-lags).
+
+
+.. _label-data:
+
+Data Representation
+-------------------
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   data_mgmt/cit_data_patterned
+   data_mgmt/block_view
+
+*   The class :py:class:`CIT_Data` represents the data used to perform a CIT.
+*   The class :py:class:`CIT_DataPatterned` (extending :py:class:`CIT_Data`)
+    additionally specifies functionality rquired to implement a pattern-provider, that is,
+    it formalizes how to describe prior knowledge about plausible pattern-structure in data.
+    Besides this interface-specification, its implementation also provides flexible
+    fallbacks of most of this functionality. Most custom pattern-definitions
+    will therefore require only little actual code, see for example:
+
+    *   The class :py:class:`CIT_DataPatterned_PersistentInTime` provides an implementation
+        for one-dimensional persistent patterns, for example persistent-in-time regimes.
+    *   The class :py:class:`CIT_DataPatterned_PesistentInSpace` provides an implementation
+        for two-dimensional persistent patterns, for example persistent-in-space regimes.
+
+*   The class :py:class:`BlockView` represents patterned (that is grouped into blocks of a specified
+    size) data.
+
+.. seealso::
+    Details on the easy customization of patterns used are given at :ref:`label-patterns`.
+
+
+Data Manager
+------------
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   data_mgmt/data_managers
+
+A data-manager's task is, given a index-representation (see :ref:`label-indexing`) of a query,
+to produce the corresponding data-representation (see :ref:`label-data`).
+More formally, it should do so by exposing the :py:class:`IManageData` interface.
+
+
+We currently provide two implemenations:
+
+*   :py:class:`DataManager_NumpyArray_IID` stores (all) data in an immutable numpy-array.
+    It uses :py:obj:`var_index` = :py:type:`int`, and is built to handle IID (except for regime-structure)
+    data.
+*   :py:class:`DataManager_NumpyArray_Timeseries` stores (all) data in an immutable numpy-array.
+    It uses :py:obj:`var_index` = :py:type:`tuple[int, int]` encoding variable index and time-lag,
+    and is built to handle time-series data.
+
+Further details, in particular on customization and :ref:`label-cache-ids` can be found at
+:ref:`label-data-mgr-details`.

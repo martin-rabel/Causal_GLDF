@@ -1,0 +1,13 @@
+Weak-Regime Tests
+-----------------
+
+.. py:currentmodule:: GLDF.data_processing
+
+.. autoclass:: WeakRegime_AcceptanceInterval()
+    :no-index-entry:
+    :class-doc-from: class
+    :show-inheritance:
+    :special-members: __init__
+    :members:
+    :inherited-members:
+    :undoc-members:

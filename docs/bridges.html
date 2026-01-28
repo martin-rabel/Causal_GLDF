@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bridges &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Post-Processing" href="post_processing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="frontend.html">Frontend</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_mgmt.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_composition.html">Composition Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="post_processing.html">Post-Processing</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bridges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-GLDF.bridges.tigramite">Tigramite Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.bridges.tigramite.alg_pcmci"><code class="docutils literal notranslate"><span class="pre">alg_pcmci()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.bridges.tigramite.alg_pcmciplus"><code class="docutils literal notranslate"><span class="pre">alg_pcmciplus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.bridges.tigramite.alg_lpcmci"><code class="docutils literal notranslate"><span class="pre">alg_lpcmci()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-GLDF.bridges.causal_learn">Causal Learn Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.bridges.causal_learn.alg_pc"><code class="docutils literal notranslate"><span class="pre">alg_pc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.bridges.causal_learn.alg_pc_stable"><code class="docutils literal notranslate"><span class="pre">alg_pc_stable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.bridges.causal_learn.alg_fci"><code class="docutils literal notranslate"><span class="pre">alg_fci()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Bridges</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bridges.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-GLDF.bridges">
+<span id="bridges"></span><h1>Bridges<a class="headerlink" href="#module-GLDF.bridges" title="Link to this heading"></a></h1>
+<p>In <a class="reference internal" href="#module-GLDF.bridges" title="GLDF.bridges: Bridges for third-party package integration."><code class="xref py py-mod docutils literal notranslate"><span class="pre">bridges</span></code></a> we provide wrappers for seamless integration with
+CD-algorithm implemenations in other packages.</p>
+<p>To integrate further third-party or your own algorithms and implemenations,
+they only have to be wrapped to satisfy the format <a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">abstract_cd_t</span></code></a>,
+for more details see <a class="reference internal" href="layer_composition.html#label-abstract-cd"><span class="std std-ref">Abstract CD Specification</span></a>.</p>
+<section id="module-GLDF.bridges.tigramite">
+<span id="tigramite-integration"></span><h2>Tigramite Integration<a class="headerlink" href="#module-GLDF.bridges.tigramite" title="Link to this heading"></a></h2>
+<p>Bridge for <a class="reference external" href="https://jakobrunge.github.io/tigramite/">tigramite</a> integration.
+Tigramite specializes to causal methods (including causal discovery) for <em>time-series</em>.
+Our output-graphs (see <a class="reference internal" href="layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><code class="xref py py-type docutils literal notranslate"><span class="pre">graph_t</span></code></a>) are in tigramite’s internal format,
+and can be used directly e.g. with effect-estimation or mediation code from tigramite.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.bridges.tigramite.alg_pcmci">
+<span class="sig-name descname"><span class="pre">alg_pcmci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mci_transition_callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><span class="pre">IHandleExplicitTransitionToMCI</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcmci_obj_init_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcmci_obj_run_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><span class="pre">abstract_cd_t</span></a></span></span><a class="headerlink" href="#GLDF.bridges.tigramite.alg_pcmci" title="Link to this definition"></a></dt>
+<dd><p>Get PCMCI <a class="reference internal" href="index.html#rnk-19" id="id1"><span>[RNK+19]</span></a> implementation from tigramite. Use with <code class="xref py py-class docutils literal notranslate"><span class="pre">ControllerTimeseries</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_format</strong> (<a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><em>IManageData</em></a>) – data manager</p></li>
+<li><p><strong>mci_transition_callback</strong> (<a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><em>IHandleExplicitTransitionToMCI</em></a>) – transition callback (typically <a class="reference internal" href="frontend.html#GLDF.independence_atoms.IndependenceAtoms_TimeSeries" title="GLDF.independence_atoms.IndependenceAtoms_TimeSeries"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries</span></code></a>)</p></li>
+<li><p><strong>pcmci_obj_init_args</strong> (<em>dict</em>) – forwarded to tigramites PCMCI constructor</p></li>
+<li><p><strong>pcmci_obj_run_args</strong> (<em>dict</em>) – forwarded to tigramites PCMCI.run_pcmci</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PCMCI as abstract CD-algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t">abstract_cd_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.bridges.tigramite.alg_pcmciplus">
+<span class="sig-name descname"><span class="pre">alg_pcmciplus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mci_transition_callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><span class="pre">IHandleExplicitTransitionToMCI</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcmci_obj_init_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcmci_obj_run_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><span class="pre">abstract_cd_t</span></a></span></span><a class="headerlink" href="#GLDF.bridges.tigramite.alg_pcmciplus" title="Link to this definition"></a></dt>
+<dd><p>Get PCMCI+ <a class="reference internal" href="index.html#r20" id="id2"><span>[R20]</span></a> implementation from tigramite. Use with <code class="xref py py-class docutils literal notranslate"><span class="pre">ControllerTimeseries</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_format</strong> (<a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><em>IManageData</em></a>) – data manager</p></li>
+<li><p><strong>mci_transition_callback</strong> (<a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><em>IHandleExplicitTransitionToMCI</em></a>) – transition callback (typically <a class="reference internal" href="frontend.html#GLDF.independence_atoms.IndependenceAtoms_TimeSeries" title="GLDF.independence_atoms.IndependenceAtoms_TimeSeries"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries</span></code></a>)</p></li>
+<li><p><strong>pcmci_obj_init_args</strong> (<em>dict</em>) – forwarded to tigramites PCMCI constructor</p></li>
+<li><p><strong>pcmci_obj_run_args</strong> (<em>dict</em>) – forwarded to tigramites PCMCI.run_pcmciplus</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PCMCI+ as abstract CD-algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t">abstract_cd_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.bridges.tigramite.alg_lpcmci">
+<span class="sig-name descname"><span class="pre">alg_lpcmci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lpcmci_obj_init_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lpcmci_obj_run_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><span class="pre">abstract_cd_t</span></a></span></span><a class="headerlink" href="#GLDF.bridges.tigramite.alg_lpcmci" title="Link to this definition"></a></dt>
+<dd><p>Get LPCMCI <a class="reference internal" href="index.html#gr20" id="id3"><span>[GR20]</span></a> implementation from tigramite. Use with <a class="reference internal" href="composition_layer/controller.html#GLDF.hccd.ControllerTimeseriesLPCMCI" title="GLDF.hccd.ControllerTimeseriesLPCMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControllerTimeseriesLPCMCI</span></code></a>.</p>
+<p><em>Note: In this case a transition callback</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">IHandleExplicitTransitionToMCI</span></code></a> <em>is</em>
+<em>notified by the controller</em> <a class="reference internal" href="composition_layer/controller.html#GLDF.hccd.ControllerTimeseriesLPCMCI" title="GLDF.hccd.ControllerTimeseriesLPCMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ControllerTimeseriesLPCMCI</span></code></a><em>.</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_format</strong> (<a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><em>IManageData</em></a>) – data manager</p></li>
+<li><p><strong>lpcmci_obj_init_args</strong> (<em>dict</em>) – forwarded to tigramites LPCMCI constructor</p></li>
+<li><p><strong>lpcmci_obj_run_args</strong> (<em>dict</em>) – forwarded to tigramites LPCMCI.run_lpcmci</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>LPCMCI as abstract CD-algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t">abstract_cd_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-GLDF.bridges.causal_learn">
+<span id="causal-learn-integration"></span><h2>Causal Learn Integration<a class="headerlink" href="#module-GLDF.bridges.causal_learn" title="Link to this heading"></a></h2>
+<p>Bridge for <a class="reference external" href="https://causal-learn.readthedocs.io/en/latest/index.html">causal-learn</a> <a class="reference internal" href="index.html#zhc-24" id="id4"><span>[ZHC+24]</span></a> integration.
+Causal Learn provides a broad range of causal methods, currently our framework is
+ready for use with their basic IID-data constraint-based CD-method implementations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.bridges.causal_learn.alg_pc">
+<span class="sig-name descname"><span class="pre">alg_pc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">runtime_args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><span class="pre">abstract_cd_t</span></a></span></span><a class="headerlink" href="#GLDF.bridges.causal_learn.alg_pc" title="Link to this definition"></a></dt>
+<dd><p>Get PC <a class="reference internal" href="index.html#sg91" id="id5"><span>[SG91]</span></a> implementation from causal learn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_format</strong> (<a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><em>IManageData</em></a>) – data manager</p></li>
+<li><p><strong>runtime_args</strong> – forwarded to causal-learns run_pc (together with “stable=False”)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PC as abstract CD-algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t">abstract_cd_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.bridges.causal_learn.alg_pc_stable">
+<span class="sig-name descname"><span class="pre">alg_pc_stable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">runtime_args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><span class="pre">abstract_cd_t</span></a></span></span><a class="headerlink" href="#GLDF.bridges.causal_learn.alg_pc_stable" title="Link to this definition"></a></dt>
+<dd><p>Get PC-stable <a class="reference internal" href="index.html#cm-14" id="id6"><span>[CM+14]</span></a> implementation from causal learn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_format</strong> (<a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><em>IManageData</em></a>) – data manager</p></li>
+<li><p><strong>runtime_args</strong> – forwarded to causal-learns run_pc (together with “stable=True”)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PC-stable as abstract CD-algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t">abstract_cd_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.bridges.causal_learn.alg_fci">
+<span class="sig-name descname"><span class="pre">alg_fci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">runtime_args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><span class="pre">abstract_cd_t</span></a></span></span><a class="headerlink" href="#GLDF.bridges.causal_learn.alg_fci" title="Link to this definition"></a></dt>
+<dd><p>Get FCI <a class="reference internal" href="index.html#sgs01" id="id7"><span>[SGS01]</span></a> implementation from causal learn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_format</strong> (<a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><em>IManageData</em></a>) – data manager</p></li>
+<li><p><strong>runtime_args</strong> – forwarded to causal-learns run_fci</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FCI as abstract CD-algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t">abstract_cd_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="post_processing.html" class="btn btn-neutral float-left" title="Post-Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

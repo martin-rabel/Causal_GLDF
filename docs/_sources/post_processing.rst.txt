@@ -1,0 +1,30 @@
+.. _label-post-process:
+
+Post-Processing
+===============
+
+.. py:currentmodule:: GLDF.hccd
+
+Indicator resolution (for example in time or space) is a post-processing step in
+our framework.
+
+Specification
+-------------
+
+It can be exposed through the provided frontend by exposing the
+:py:mod:`hccd<GLDF.hccd>`\ -specified interface:
+
+
+.. autoclass:: IResolveRegimeStructure()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+Implementations
+---------------
+
+For the current baseline state-space-construction :py:mod:`state_space_construction<GLDF.state_space_construction>`,
+resolution is possible for example through representing CI-tests
+:py:attr:`ModelIndicator.representor<GLDF.state_space_construction.ModelIndicator.representor>`.
+A preliminary implementation is given in :py:class:`ResolveByRepresentor<GLDF.state_space_construction.ResolveByRepresentor>`.

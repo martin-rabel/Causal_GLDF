@@ -1,0 +1,29 @@
+.. _label-compound-backend:
+
+Independence Atom Backend
+-------------------------
+
+.. py:currentmodule:: GLDF.hccd
+    
+The composition layer operates (exclusively) on primitives exposed by the
+:py:mod:`data_processing<GLDF.data_processing>` layer, with
+:py:mod:`data_management<GLDF.data_processing>` logically detached (accessed
+only thourgh the :py:mod:`data_processing<GLDF.data_processing>` layer).
+It uses only the following composed independence-atom backend:
+
+.. autoclass:: IProvideIndependenceAtoms()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:
+
+For PCMCI-familiy algortihms, the independence-atom backend further
+is notified of transitions between PC1 and MCI phase through the callbacks
+of the following interface:
+
+
+.. autoclass:: IHandleExplicitTransitionToMCI()
+    :no-index-entry:
+    :class-doc-from: class
+    :members:
+    :undoc-members:

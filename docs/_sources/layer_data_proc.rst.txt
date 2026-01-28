@@ -1,0 +1,106 @@
+.. _label-data-processing-layer:
+
+Data Processing Layer
+=====================
+
+.. py:currentmodule:: GLDF.data_management
+
+.. py:module:: GLDF.data_processing
+    :synopsis: Data processing layer.
+
+The module :py:mod:`!data_processing` provides implementations for the marked independence atoms:
+mCITs and indicator relations, and their sub-components.
+Additionally, it specifies interfaces that custom implementations of an underlying CIT, homogeneity
+test or weak-regime test should expose.
+
+.. seealso::
+    The conditional independence test (CIT) implementations themselves are logically also part
+    of the data processing layer. Considering that CIT-implementations, similar to underlying
+    CD-algorithms, will typically be employed from third-party sources, the partial correlation
+    implementation currently included with this code is factored into the separate file
+    :py:mod:`cit<GLDF.cit>`. Details on the specification and implementation of custom CITs
+    (or integration of third-party implementations) can be found at :ref:`label-cit-interfaces`.
+
+
+
+Test implementations
+--------------------
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   data_layer/mCIT
+   data_layer/homogeneity_test
+   data_layer/weak_regime_test
+   data_layer/indicator_relation_test
+   data_layer/truncated_normal
+
+*   The class :py:class:`mCIT` composes an underlying CIT (exposing :py:class:`ITestCI`),
+    a homogeneity test (exposing :py:class:`ITestHomogeneity`) and a weak-regime test
+    (exposing :py:class:`ITestWeakRegime`) into a regime-marked conditional independence test
+    (mCIT), providing :py:class:`ITestMarkedCI`, as described by §5 of [RR25]_\ .
+*   The class :py:class:`Homogeneity_Binomial` provides a homogeneity test (as specified by
+    :py:class:`ITestHomogeneity`) based on a binomal test with block-quantiles,
+    as described by §5.2.2 of [RR25]_\ .
+*   The class :py:class:`WeakRegime_AcceptanceInterval` provides a weak-regime test
+    (as specified by :py:class:`ITestWeakRegime`) based on the acceptance-interval method,
+    as described by §5.2.3 of [RR25]_\ .
+*   The class :py:class:`IndicatorImplication_AcceptanceInterval` provides a indicator-implication
+    test based on the acceptance-interval method,
+    as described by §D.4.7 of [RR25]_\ .
+*   The helper :py:class:`TruncatedNormal` provides some basic properties of truncated normal
+    distributions, used by the acceptance-interval tests.
+
+
+.. _label-interfaces-custom-data-proc:
+
+Interfaces for Custom Stages
+----------------------------
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   data_layer/cit_interfaces
+   data_layer/component_interfaces
+   data_layer/hyperparam_interfaces
+
+
+*   The underlying CIT implementations can provide information through different interfaces:
+
+    *   The interface :py:class:`ITestCI` is mandatory, it specifies how to expose CI-testing
+        functionality itself.
+    *   The interface :py:class:`IProvideAnalyticQuantilesForCIT` is optional (if not implemented,
+        quantiles will be bootstrapped), it specifies how to provide quantile-estimates for
+        a specific CIT. It is required only for :py:class:`Homogeneity_Binomial`.
+    *   The interface :py:class:`IProvideVarianceForCIT` is manatory, it specifies how to
+        provide variance-estimates for a specific CIT. It is required only for
+        :py:class:`WeakRegime_AcceptanceInterval` and :py:class:`IndicatorImplication_AcceptanceInterval`.
+*   The interface :py:class:`ITestMarkedCI` specifies how to provide a custom marked conditional independence
+    test.
+*   The interface :py:class:`ITestHomogeneity` specifies how to provide a custom homogeneity test.
+*   The interface :py:class:`ITestWeakRegime` specifies how to provide a custom weak-regime test.
+*   The interface :py:class:`ITestIndicatorImplications` specifies how to provide a custom indicator-relation test.
+*   The interface :py:class:`IProvideHyperparamsForRobustCIT` specifies how to provide N and dim(Z)
+    dependent hyper-parameter sets for robust CI testing (cf. :py:meth:`mCIT.__init__`).
+*   The interface :py:class:`IProvideHyperparamsForBinomial` specifies how to provide N and dim(Z)
+    dependent hyper-parameter sets for :py:class:`Homogeneity_Binomial`.
+*   The interface :py:class:`IProvideHyperparamsForAcceptanceInterval` specifies how to provide N and dim(Z)
+    dependent hyper-parameter sets for :py:class:`WeakRegime_AcceptanceInterval` and
+    :py:class:`IndicatorImplication_AcceptanceInterval`.
+
+
+CIT Implementations
+-------------------
+
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+
+   data_layer/cit_impl
+
+.. py:currentmodule:: GLDF
+
+We currently include an implementation for z-score represented partial correlation as
+:py:class:`cit.ParCorr`.

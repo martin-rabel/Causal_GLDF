@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acyclic Union-Graphs &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Controllers" href="controller.html" />
+    <link rel="prev" title="Specification" href="state_space_construction_spec.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../frontend.html">Frontend</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../data_mgmt.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../layer_composition.html">Composition Layer</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../layer_composition.html#independence-atom-backend">Independence Atom Backend</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../layer_composition.html#state-space-construction">State Space Construction</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="state_space_construction_spec.html">Specification</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Acyclic Union-Graphs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.NoUnionCycles"><code class="docutils literal notranslate"><span class="pre">NoUnionCycles</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.ModelIndicators_NoUnionCycles"><code class="docutils literal notranslate"><span class="pre">ModelIndicators_NoUnionCycles</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.StateSpace"><code class="docutils literal notranslate"><span class="pre">StateSpace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.State"><code class="docutils literal notranslate"><span class="pre">State</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.ModelIndicator"><code class="docutils literal notranslate"><span class="pre">ModelIndicator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.StructuredResultWithTranslation"><code class="docutils literal notranslate"><span class="pre">StructuredResultWithTranslation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces"><code class="docutils literal notranslate"><span class="pre">Unionize_Translate_Transfer_NoUnionCylces</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.state_space_construction.ResolveByRepresentor"><code class="docutils literal notranslate"><span class="pre">ResolveByRepresentor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../layer_composition.html#hccd-controller">HCCD Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layer_composition.html#abstract-cd-specification">Abstract CD Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../layer_composition.html">Composition Layer</a></li>
+      <li class="breadcrumb-item active">Acyclic Union-Graphs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/composition_layer/state_space_construction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-GLDF.state_space_construction">
+<span id="acyclic-union-graphs"></span><h1>Acyclic Union-Graphs<a class="headerlink" href="#module-GLDF.state_space_construction" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.NoUnionCycles">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">NoUnionCycles</span></span><a class="headerlink" href="#GLDF.state_space_construction.NoUnionCycles" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IConstructStateSpace" title="GLDF.hccd.IConstructStateSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConstructStateSpace</span></code></a></p>
+<p>Current baseline implementation.</p>
+<p><em>Implements Algo. 3 from</em> <a class="reference internal" href="../index.html#rr25" id="id1"><span>[RR25]</span></a><em>.</em></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.NoUnionCycles.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.NoUnionCycles.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.NoUnionCycles.construct_statespace">
+<span class="sig-name descname"><span class="pre">construct_statespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">testing_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">marked_tests</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_graphs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentStateSpace" title="GLDF.hccd.IRepresentStateSpace"><span class="pre">IRepresentStateSpace</span></a></span></span><a class="headerlink" href="#GLDF.state_space_construction.NoUnionCycles.construct_statespace" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IConstructStateSpace" title="GLDF.hccd.IConstructStateSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConstructStateSpace</span></code></a><em>.</em></p>
+<p>Construct state-space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>testing_backend</strong> (<a class="reference internal" href="compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><em>IProvideIndependenceAtoms</em></a>) – the independece-atom backend</p></li>
+<li><p><strong>marked_tests</strong> (<em>set</em><em>[</em><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a><em>]</em>) – the set of marked conditional independencies</p></li>
+<li><p><strong>previous_graphs</strong> (<em>dict</em><em>[</em><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><em>IRepresentState</em></a><em>,</em><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><em>graph_t</em></a><em>]</em>) – state-specific graph for each state found in the previous iteration</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>state-space</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentStateSpace" title="GLDF.hccd.IRepresentStateSpace">IRepresentStateSpace</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.NoUnionCycles.store_translated_ci">
+<span class="sig-name descname"><span class="pre">store_translated_ci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">implied_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.state_space_construction.NoUnionCycles.store_translated_ci" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.NoUnionCycles.translate_ci">
+<span class="sig-name descname"><span class="pre">translate_ci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.state_space_construction.NoUnionCycles.translate_ci" title="Link to this definition"></a></dt>
+<dd><p>Translate detected indicators.</p>
+<p><em>Implements phase II of Algo. 3 in</em> <a class="reference internal" href="../index.html#rr25" id="id2"><span>[RR25]</span></a><em>.</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – marked CI test</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ModelIndicators_NoUnionCycles">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ModelIndicators_NoUnionCycles</span></span><a class="headerlink" href="#GLDF.state_space_construction.ModelIndicators_NoUnionCycles" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>In the current baseline implementation, in a first phase, model indicators are
+found as a maximum by semi-ordering based on indicator-implications.</p>
+<p><em>Implements phase I of Algo. 3 from</em> <a class="reference internal" href="../index.html#rr25" id="id3"><span>[RR25]</span></a><em>.</em></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ModelIndicators_NoUnionCycles.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">testing_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">marked_tests</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.ModelIndicators_NoUnionCycles.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StateSpace">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">StateSpace</span></span><a class="headerlink" href="#GLDF.state_space_construction.StateSpace" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentStateSpace" title="GLDF.hccd.IRepresentStateSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentStateSpace</span></code></a></p>
+<p>Represents the state-space in the current baseline implementation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StateSpace.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_indicators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.state_space_construction.ModelIndicator" title="GLDF.state_space_construction.ModelIndicator"><span class="pre">ModelIndicator</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marked_ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.StateSpace.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StateSpace.is_trivial">
+<span class="sig-name descname"><span class="pre">is_trivial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#GLDF.state_space_construction.StateSpace.is_trivial" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StateSpace.controls_ci">
+<span class="sig-name descname"><span class="pre">controls_ci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.StateSpace.controls_ci" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StateSpace.states">
+<span class="sig-name descname"><span class="pre">states</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.state_space_construction.State" title="GLDF.state_space_construction.State"><span class="pre">State</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.state_space_construction.StateSpace.states" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentStateSpace" title="GLDF.hccd.IRepresentStateSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentStateSpace</span></code></a><em>.</em></p>
+<p>States contained in this state-space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of states</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState">IRepresentState</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StateSpace.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><span class="pre">IRepresentState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><span class="pre">IPresentResult</span></a></span></span><a class="headerlink" href="#GLDF.state_space_construction.StateSpace.finalize" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentStateSpace" title="GLDF.hccd.IRepresentStateSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentStateSpace</span></code></a><em>.</em></p>
+<p>Translate to model-properties and transfer information between states
+into a result-summary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graphs</strong> (<em>dict</em><em>[</em><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><em>IRepresentState</em></a><em>,</em><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><em>graph_t</em></a><em>]</em>) – state-specific graph for each state</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the summarized result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult">IPresentResult</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StateSpace.states_which_imply">
+<span class="sig-name descname"><span class="pre">states_which_imply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.state_space_construction.State" title="GLDF.state_space_construction.State"><span class="pre">State</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.state_space_construction.StateSpace.states_which_imply" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.State">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">State</span></span><a class="headerlink" href="#GLDF.state_space_construction.State" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentState</span></code></a></p>
+<p>Represents a state in the current baseline implementation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.State.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GLDF.state_space_construction.StateSpace" title="GLDF.state_space_construction.StateSpace"><span class="pre">StateSpace</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_indicator_active</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.state_space_construction.ModelIndicator" title="GLDF.state_space_construction.ModelIndicator"><span class="pre">ModelIndicator</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.State.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.State.state_space">
+<span class="sig-name descname"><span class="pre">state_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IConstructStateSpace" title="GLDF.hccd.IConstructStateSpace"><span class="pre">IConstructStateSpace</span></a></span></span><a class="headerlink" href="#GLDF.state_space_construction.State.state_space" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentState</span></code></a><em>.</em></p>
+<p>Get containing state-space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>state-space</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentStateSpace" title="GLDF.hccd.IRepresentStateSpace">IRepresentStateSpace</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.State.add_implication">
+<span class="sig-name descname"><span class="pre">add_implication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.State.add_implication" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.State.overwrites_ci">
+<span class="sig-name descname"><span class="pre">overwrites_ci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.State.overwrites_ci" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentState</span></code></a><em>.</em></p>
+<p>Is this conditional independence marked?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – conditional independence</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>truth-value of CI being marked</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.State.get_ci_pseudo_value">
+<span class="sig-name descname"><span class="pre">get_ci_pseudo_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.State.get_ci_pseudo_value" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRepresentState</span></code></a><em>.</em></p>
+<p>Get a (state-encoded) value for a marked conditional independence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – marked conditional independence</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>state-specific dependence-value (true for dependent).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ModelIndicator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ModelIndicator</span></span><a class="headerlink" href="#GLDF.state_space_construction.ModelIndicator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a model-indicator in the current baseline implementation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ModelIndicator.undirected_link">
+<span class="sig-name descname"><span class="pre">undirected_link</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></span><a class="headerlink" href="#GLDF.state_space_construction.ModelIndicator.undirected_link" title="Link to this definition"></a></dt>
+<dd><p>The link in the model on which a change was detected.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ModelIndicator.representor">
+<span class="sig-name descname"><span class="pre">representor</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span><a class="headerlink" href="#GLDF.state_space_construction.ModelIndicator.representor" title="Link to this definition"></a></dt>
+<dd><p>A representing test (this test is independent iff the model-indicator is zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ModelIndicator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">undirected_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">representor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.state_space_construction.ModelIndicator.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StructuredResultWithTranslation">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">StructuredResultWithTranslation</span></span><a class="headerlink" href="#GLDF.state_space_construction.StructuredResultWithTranslation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPresentResult</span></code></a></p>
+<p>Represents the (translated and transfered) result/labeled union graph
+in the current baseline implementation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StructuredResultWithTranslation.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">union_graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_indicators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.state_space_construction.ModelIndicator" title="GLDF.state_space_construction.ModelIndicator"><span class="pre">ModelIndicator</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><span class="pre">IRepresentState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.StructuredResultWithTranslation.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StructuredResultWithTranslation.union_graph">
+<span class="sig-name descname"><span class="pre">union_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a></span></span><a class="headerlink" href="#GLDF.state_space_construction.StructuredResultWithTranslation.union_graph" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPresentResult</span></code></a><em>.</em></p>
+<p>Get the union-graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>union-graph (tigramite encoded)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t">graph_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StructuredResultWithTranslation.state_graphs">
+<span class="sig-name descname"><span class="pre">state_graphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.state_space_construction.StructuredResultWithTranslation.state_graphs" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPresentResult</span></code></a><em>.</em></p>
+<p>Get the state-specific graphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of state-specific graphs (tigramite encoded)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t">graph_t</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.StructuredResultWithTranslation.model_indicators">
+<span class="sig-name descname"><span class="pre">model_indicators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#GLDF.state_space_construction.StructuredResultWithTranslation.model_indicators" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">IPresentResult</span></code></a><em>.</em></p>
+<p>Get the model-indicators. Translation is state-space-construction specific.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>model-indicators</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Unionize_Translate_Transfer_NoUnionCylces</span></span><a class="headerlink" href="#GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Namescope for helpers for constructiong a labeled union-graph.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.unionize_edgemark">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">unionize_edgemark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.unionize_edgemark" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.unionize_edge">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">unionize_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.unionize_edge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.unionize_and_transfer">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">unionize_and_transfer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.unionize_and_transfer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.obtain_translation_result">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">obtain_translation_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GLDF.state_space_construction.StateSpace" title="GLDF.state_space_construction.StateSpace"><span class="pre">StateSpace</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="state_space_construction_spec.html#GLDF.hccd.IRepresentState" title="GLDF.hccd.IRepresentState"><span class="pre">IRepresentState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.Unionize_Translate_Transfer_NoUnionCylces.obtain_translation_result" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ResolveByRepresentor">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ResolveByRepresentor</span></span><a class="headerlink" href="#GLDF.state_space_construction.ResolveByRepresentor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../post_processing.html#GLDF.hccd.IResolveRegimeStructure" title="GLDF.hccd.IResolveRegimeStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">IResolveRegimeStructure</span></code></a></p>
+<p>Primitive approximate resolution of model-indicators by representors.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ResolveByRepresentor.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indicator_resolution_score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../data_mgmt/block_view.html#GLDF.data_management.BlockView" title="GLDF.data_management.BlockView"><span class="pre">BlockView</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_mgr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.state_space_construction.ResolveByRepresentor.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.state_space_construction.ResolveByRepresentor.resolve_model_indicator">
+<span class="sig-name descname"><span class="pre">resolve_model_indicator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_indicator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GLDF.state_space_construction.ModelIndicator" title="GLDF.state_space_construction.ModelIndicator"><span class="pre">ModelIndicator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#GLDF.state_space_construction.ResolveByRepresentor.resolve_model_indicator" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="../post_processing.html#GLDF.hccd.IResolveRegimeStructure" title="GLDF.hccd.IResolveRegimeStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">IResolveRegimeStructure</span></code></a><em>.</em></p>
+<p>Resolve a model-indicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_indicator</strong> (<em>state-space construction specific encoding</em>) – model-indicator</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Resolved (in index-space) indicator.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="state_space_construction_spec.html" class="btn btn-neutral float-left" title="Specification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="controller.html" class="btn btn-neutral float-right" title="Controllers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

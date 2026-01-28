@@ -1,0 +1,29 @@
+.. _label-hyperparam-interfaces:
+
+Interfaces for Hyper-Parameter Sets
+-----------------------------------
+
+.. py:currentmodule:: GLDF.data_processing
+
+.. autoclass:: IProvideHyperparamsForRobustCIT()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: IProvideHyperparamsForBinomial()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:
+
+
+.. autoclass:: IProvideHyperparamsForAcceptanceInterval()
+    :no-index-entry:
+    :class-doc-from: class
+    :special-members: __init__
+    :members:
+    :undoc-members:

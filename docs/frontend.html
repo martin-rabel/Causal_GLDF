@@ -1,0 +1,1168 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontend &mdash; GLDF 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Management" href="data_mgmt.html" />
+    <link rel="prev" title="GLDF: Non-Homogeneous Causal Graph Discovery" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GLDF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Frontend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preconfigured-execution">Preconfigured Execution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.run_hccd_temporal_regimes"><code class="docutils literal notranslate"><span class="pre">run_hccd_temporal_regimes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.run_hccd_spatial_regimes"><code class="docutils literal notranslate"><span class="pre">run_hccd_spatial_regimes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#structured-output">Structured Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.Result"><code class="docutils literal notranslate"><span class="pre">Result</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.Result.__init__"><code class="docutils literal notranslate"><span class="pre">Result.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.Result.var_names"><code class="docutils literal notranslate"><span class="pre">Result.var_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.Result.union_graph"><code class="docutils literal notranslate"><span class="pre">Result.union_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.Result.state_graphs"><code class="docutils literal notranslate"><span class="pre">Result.state_graphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.Result.model_indicators"><code class="docutils literal notranslate"><span class="pre">Result.model_indicators()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.Result.plot_labeled_union_graph"><code class="docutils literal notranslate"><span class="pre">Result.plot_labeled_union_graph()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.ResolvableModelIndicator"><code class="docutils literal notranslate"><span class="pre">ResolvableModelIndicator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ResolvableModelIndicator.__init__"><code class="docutils literal notranslate"><span class="pre">ResolvableModelIndicator.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ResolvableModelIndicator.undirected_link"><code class="docutils literal notranslate"><span class="pre">ResolvableModelIndicator.undirected_link()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ResolvableModelIndicator.resolve"><code class="docutils literal notranslate"><span class="pre">ResolvableModelIndicator.resolve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ResolvableModelIndicator.plot_resolution"><code class="docutils literal notranslate"><span class="pre">ResolvableModelIndicator.plot_resolution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.color_scheme"><code class="docutils literal notranslate"><span class="pre">color_scheme</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#customized-configurations">Customized Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.configure_hccd_temporal_regimes"><code class="docutils literal notranslate"><span class="pre">configure_hccd_temporal_regimes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.configure_hccd_spatial_regimes"><code class="docutils literal notranslate"><span class="pre">configure_hccd_spatial_regimes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.is_timeseries"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.is_timeseries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.alpha"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.min_regime_fraction"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.min_regime_fraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.indicator_resolution_granularity"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.indicator_resolution_granularity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.regimes_are_large"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.regimes_are_large</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.tau_max"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.tau_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.alpha_pc1"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.alpha_pc1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_data_manager"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_data_manager()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_backend_config"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_backend_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_backend"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_mci_backend"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_mci_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.alpha_homogeneity_pc1"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.alpha_homogeneity_pc1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_pc1_backend"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_pc1_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_transitionable_backend"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_transitionable_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_universal_cd"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_universal_cd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_state_space_construction"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_state_space_construction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_controller"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_controller()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_cit"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_cit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.get_indicator_resultion"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.get_indicator_resultion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.run"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.__init__"><code class="docutils literal notranslate"><span class="pre">ConfigureHCCD.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.data_manager"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.data_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.alpha"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.alpha_homogeneity"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.alpha_homogeneity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.regimes_are_large"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.regimes_are_large</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.min_regime_fraction"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.min_regime_fraction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.enable_weak_test"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.enable_weak_test</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.enable_implication_test"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.enable_implication_test</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.get_cit"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.get_cit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.cit_analytic_quantile_estimate"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.cit_analytic_quantile_estimate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.cit_variance_estimate"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.cit_variance_estimate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.get_homogeneity_test"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.get_homogeneity_test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.get_weak_test"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.get_weak_test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.get_mcit"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.get_mcit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.get_implication_test"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.get_implication_test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.get_backend"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.get_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend.__init__"><code class="docutils literal notranslate"><span class="pre">ConfigureBackend.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.frontend.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.frontend.Config.finalize"><code class="docutils literal notranslate"><span class="pre">Config.finalize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-GLDF.hyperparams">Hyper-Parameter Sets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr"><code class="docutils literal notranslate"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.__init__"><code class="docutils literal notranslate"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.cache"><code class="docutils literal notranslate"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr.cache</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.hyperparams_for_binomial"><code class="docutils literal notranslate"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr.hyperparams_for_binomial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.get_opt_beta"><code class="docutils literal notranslate"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr.get_opt_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.get_opt_blocksize"><code class="docutils literal notranslate"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr.get_opt_blocksize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.compute_for_fixed_sample_count"><code class="docutils literal notranslate"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr.compute_for_fixed_sample_count()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr"><code class="docutils literal notranslate"><span class="pre">Hyperparams_WeakInterval_ParCorr</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.__init__"><code class="docutils literal notranslate"><span class="pre">Hyperparams_WeakInterval_ParCorr.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.hyperparams_for_acceptance_interval"><code class="docutils literal notranslate"><span class="pre">Hyperparams_WeakInterval_ParCorr.hyperparams_for_acceptance_interval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_opt_blocksize"><code class="docutils literal notranslate"><span class="pre">Hyperparams_WeakInterval_ParCorr.get_opt_blocksize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_opt_cutoff"><code class="docutils literal notranslate"><span class="pre">Hyperparams_WeakInterval_ParCorr.get_opt_cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_for_fixed_sample_count"><code class="docutils literal notranslate"><span class="pre">Hyperparams_WeakInterval_ParCorr.get_for_fixed_sample_count()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#independence-atom-backends">Independence Atom Backends</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_Backend"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_Backend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.__init__"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_Backend.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.marked_independence"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_Backend.marked_independence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.regime_implication"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_Backend.regime_implication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.found_globally_independent_for_some_Z"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_Backend.found_globally_independent_for_some_Z()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.__init__"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.marked_independence"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries.marked_independence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.regime_implication"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries.regime_implication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.found_globally_independent_for_some_Z"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries.found_globally_independent_for_some_Z()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.enter_pc1"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries.enter_pc1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.enter_mci"><code class="docutils literal notranslate"><span class="pre">IndependenceAtoms_TimeSeries.enter_mci()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_mgmt.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_data_proc.html">Data Processing Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_composition.html">Composition Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="post_processing.html">Post-Processing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bridges.html">Bridges</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GLDF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Frontend</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/frontend.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-GLDF.frontend">
+<span id="frontend"></span><h1>Frontend<a class="headerlink" href="#module-GLDF.frontend" title="Link to this heading"></a></h1>
+<p>The module <code class="xref py py-mod docutils literal notranslate"><span class="pre">frontend</span></code> provides predefined configurations of the modular
+<a class="reference internal" href="index.html#module-GLDF" title="GLDF"><code class="xref py py-mod docutils literal notranslate"><span class="pre">GLDF</span></code></a> backend. This includes general purpose hyper-parameter sets <code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperparameters</span></code>.</p>
+<section id="preconfigured-execution">
+<h2>Preconfigured Execution<a class="headerlink" href="#preconfigured-execution" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.frontend.run_hccd_temporal_regimes">
+<span class="sig-name descname"><span class="pre">run_hccd_temporal_regimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_pc1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_latent_confounding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.frontend.Result" title="GLDF.frontend.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#GLDF.frontend.run_hccd_temporal_regimes" title="Link to this definition"></a></dt>
+<dd><p>Run preconfigured HCCD for temporal regimes. Uses PCMCI+ <a class="reference internal" href="index.html#r20" id="id1"><span>[R20]</span></a> as default CD-algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – observed data</p></li>
+<li><p><strong>regimes_are_large</strong> (<em>bool</em><em>, </em><em>optional</em>) – use hyper-parameter sets optimized for large regimes (True is recommended, especially for time-series data), defaults to True</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for hypothesis-tests, defaults to 0.01</p></li>
+<li><p><strong>alpha_pc1</strong> (<em>float</em><em>, </em><em>optional</em>) – confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for independence-tests in the PC1-phase, defaults to 0.1</p></li>
+<li><p><strong>allow_latent_confounding</strong> (<em>bool</em><em>, </em><em>optional</em>) – consider the possibility of latent confounding by using LPCMCI <a class="reference internal" href="index.html#gr20" id="id2"><span>[GR20]</span></a> (this implementation is currently experimental
+and regime-discovery may have low recall, see <a class="reference internal" href="index.html#rr25" id="id3"><span>[RR25]</span></a>), defaults to False</p></li>
+<li><p><strong>tau_max</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum lag in considered time-window, defaults to 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Structured HCCD result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#GLDF.frontend.Result" title="GLDF.frontend.Result">Result</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.frontend.run_hccd_spatial_regimes">
+<span class="sig-name descname"><span class="pre">run_hccd_spatial_regimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.frontend.Result" title="GLDF.frontend.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#GLDF.frontend.run_hccd_spatial_regimes" title="Link to this definition"></a></dt>
+<dd><p>Run preconfigured HCCD for spatial (2 dimensional, non-time-series) data. Uses FCI <a class="reference internal" href="index.html#sgs01" id="id4"><span>[SGS01]</span></a> as default CD-algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – observed data</p></li>
+<li><p><strong>regimes_are_large</strong> (<em>bool</em><em>, </em><em>optional</em>) – use hyper-parameter sets optimized for large regimes (True is recommended, especially for time-series data), defaults to True</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for hypothesis-tests, defaults to 0.01</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Structured HCCD result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#GLDF.frontend.Result" title="GLDF.frontend.Result">Result</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="structured-output">
+<h2>Structured Output<a class="headerlink" href="#structured-output" title="Link to this heading"></a></h2>
+<p>Running HCCD through the frontend will produce structured results
+that bundle the output of the backend with convenience functions
+for post-processing (in particular approximate indicator resolution)
+and plotting.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.frontend.Result">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Result</span></span><a class="headerlink" href="#GLDF.frontend.Result" title="Link to this definition"></a></dt>
+<dd><p>Structured result presenting output obtained from HCCD.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.Result.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hccd_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="composition_layer/state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><span class="pre">IPresentResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicator_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="post_processing.html#GLDF.hccd.IResolveRegimeStructure" title="GLDF.hccd.IResolveRegimeStructure"><span class="pre">IResolveRegimeStructure</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.frontend.Result.__init__" title="Link to this definition"></a></dt>
+<dd><p>Construct from backend-result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hccd_result</strong> (<a class="reference internal" href="composition_layer/state_space_construction_spec.html#GLDF.hccd.IPresentResult" title="GLDF.hccd.IPresentResult"><em>IPresentResult</em></a>) – backend hccd result</p></li>
+<li><p><strong>indicator_resolution</strong> (<a class="reference internal" href="post_processing.html#GLDF.hccd.IResolveRegimeStructure" title="GLDF.hccd.IResolveRegimeStructure"><em>IResolveRegimeStructure</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – indicator resolution strategy, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.Result.var_names">
+<span class="sig-name descname"><span class="pre">var_names</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#GLDF.frontend.Result.var_names" title="Link to this definition"></a></dt>
+<dd><p>Write to this field before plotting to provide variable-names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.Result.union_graph">
+<span class="sig-name descname"><span class="pre">union_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a></span></span><a class="headerlink" href="#GLDF.frontend.Result.union_graph" title="Link to this definition"></a></dt>
+<dd><p>Get the estimated union-graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>union-graph (tigramite format)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t">graph_t</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.Result.state_graphs">
+<span class="sig-name descname"><span class="pre">state_graphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t"><span class="pre">graph_t</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.frontend.Result.state_graphs" title="Link to this definition"></a></dt>
+<dd><p>Get state-specific graphs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of state-specific graphs (tigramite format)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="layer_composition.html#GLDF.hccd.graph_t" title="GLDF.hccd.graph_t">graph_t</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.Result.model_indicators">
+<span class="sig-name descname"><span class="pre">model_indicators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#GLDF.frontend.ResolvableModelIndicator" title="GLDF.frontend.ResolvableModelIndicator"><span class="pre">ResolvableModelIndicator</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.frontend.Result.model_indicators" title="Link to this definition"></a></dt>
+<dd><p>Get structured result representing discovered model-indicators (changing links).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of model indicators</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="#GLDF.frontend.ResolvableModelIndicator" title="GLDF.frontend.ResolvableModelIndicator">ResolvableModelIndicator</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.Result.plot_labeled_union_graph">
+<span class="sig-name descname"><span class="pre">plot_labeled_union_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.frontend.Result.plot_labeled_union_graph" title="Link to this definition"></a></dt>
+<dd><p>Plot the (color-)labeled union-graph.</p>
+<p>Keyword arguments are forwarded to (a modified version of) <code class="xref py py-meth docutils literal notranslate"><span class="pre">tigramite.plotting.plot_graph()</span></code>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Uses colors from <a class="reference internal" href="#GLDF.frontend.color_scheme" title="GLDF.frontend.color_scheme"><code class="xref py py-data docutils literal notranslate"><span class="pre">color_scheme</span></code></a>.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.frontend.ResolvableModelIndicator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ResolvableModelIndicator</span></span><a class="headerlink" href="#GLDF.frontend.ResolvableModelIndicator" title="Link to this definition"></a></dt>
+<dd><p>Structured result presenting results about a particular model-indicator.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ResolvableModelIndicator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indicator_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="post_processing.html#GLDF.hccd.IResolveRegimeStructure" title="GLDF.hccd.IResolveRegimeStructure"><span class="pre">IResolveRegimeStructure</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_indicator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assigned_color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.frontend.ResolvableModelIndicator.__init__" title="Link to this definition"></a></dt>
+<dd><p>Construct a structured result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indicator_resolution</strong> (<a class="reference internal" href="post_processing.html#GLDF.hccd.IResolveRegimeStructure" title="GLDF.hccd.IResolveRegimeStructure"><em>IResolveRegimeStructure</em></a>) – Indicator resolution strategy.</p></li>
+<li><p><strong>model_indicator</strong> (<em>state-space construction specific</em>) – underlying model-indicator</p></li>
+<li><p><strong>assigned_color</strong> (<em>str</em>) – color “label”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ResolvableModelIndicator.undirected_link">
+<span class="sig-name descname"><span class="pre">undirected_link</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#GLDF.frontend.ResolvableModelIndicator.undirected_link" title="Link to this definition"></a></dt>
+<dd><p>The underlying undirected link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the changing link in the model</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[<a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.var_index" title="GLDF.data_management.var_index">data_management.var_index</a>,<a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.var_index" title="GLDF.data_management.var_index">data_management.var_index</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ResolvableModelIndicator.resolve">
+<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.frontend.ResolvableModelIndicator.resolve" title="Link to this definition"></a></dt>
+<dd><p>Approximately resolve the indicator relative to index-space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>resolved indicator (possibly as dictionary “label”: values)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray|dict[str, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ResolvableModelIndicator.plot_resolution">
+<span class="sig-name descname"><span class="pre">plot_resolution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.frontend.ResolvableModelIndicator.plot_resolution" title="Link to this definition"></a></dt>
+<dd><p>Generate and plot an approximate resolution of the indicator in index-space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – Currently only supports 1D and 2D data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>By default the union-graph is color-labeled, using colors from:</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="GLDF.frontend.color_scheme">
+<span class="sig-name descname"><span class="pre">color_scheme</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['blue',</span> <span class="pre">'orange',</span> <span class="pre">'cyan',</span> <span class="pre">'red',</span> <span class="pre">'green',</span> <span class="pre">'darkgray']</span></span><a class="headerlink" href="#GLDF.frontend.color_scheme" title="Link to this definition"></a></dt>
+<dd><p>These colors are used (in order, repeating) in labeled union graphs as “labels”.</p>
+</dd></dl>
+
+</section>
+<section id="customized-configurations">
+<h2>Customized Configurations<a class="headerlink" href="#customized-configurations" title="Link to this heading"></a></h2>
+<p>Basic configurations of the backend can be described through the
+<a class="reference internal" href="#GLDF.frontend.ConfigureHCCD" title="GLDF.frontend.ConfigureHCCD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigureHCCD</span></code></a> class. The configurations of
+<a class="reference internal" href="#GLDF.frontend.run_hccd_temporal_regimes" title="GLDF.frontend.run_hccd_temporal_regimes"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_hccd_temporal_regimes()</span></code></a> and
+<a class="reference internal" href="#GLDF.frontend.run_hccd_spatial_regimes" title="GLDF.frontend.run_hccd_spatial_regimes"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_hccd_spatial_regimes()</span></code></a> (see above) are available
+as templates through:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.frontend.configure_hccd_temporal_regimes">
+<span class="sig-name descname"><span class="pre">configure_hccd_temporal_regimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_pc1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_latent_confounding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD" title="GLDF.frontend.ConfigureHCCD"><span class="pre">ConfigureHCCD</span></a></span></span><a class="headerlink" href="#GLDF.frontend.configure_hccd_temporal_regimes" title="Link to this definition"></a></dt>
+<dd><p>Get standard-configuration of HCCD for temporal regimes. Uses PCMCI+ <a class="reference internal" href="index.html#r20" id="id5"><span>[R20]</span></a> as default CD-algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>regimes_are_large</strong> (<em>bool</em><em>, </em><em>optional</em>) – use hyper-parameter sets optimized for large regimes (True is recommended, especially for time-series data), defaults to True</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for hypothesis-tests, defaults to 0.01</p></li>
+<li><p><strong>alpha_pc1</strong> (<em>float</em><em>, </em><em>optional</em>) – confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for independence-tests in the PC1-phase, defaults to 0.1</p></li>
+<li><p><strong>allow_latent_confounding</strong> (<em>bool</em><em>, </em><em>optional</em>) – consider the possibility of latent confounding by using LPCMCI <a class="reference internal" href="index.html#gr20" id="id6"><span>[GR20]</span></a> (this implementation is currently experimental
+and regime-discovery may have low recall, see <a class="reference internal" href="index.html#rr25" id="id7"><span>[RR25]</span></a>), defaults to False</p></li>
+<li><p><strong>tau_max</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum lag in considered time-window, defaults to 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HCCD configuration used by <a class="reference internal" href="#GLDF.frontend.run_hccd_temporal_regimes" title="GLDF.frontend.run_hccd_temporal_regimes"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_hccd_temporal_regimes()</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD" title="GLDF.frontend.ConfigureHCCD">ConfigureHCCD</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="GLDF.frontend.configure_hccd_spatial_regimes">
+<span class="sig-name descname"><span class="pre">configure_hccd_spatial_regimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD" title="GLDF.frontend.ConfigureHCCD"><span class="pre">ConfigureHCCD</span></a></span></span><a class="headerlink" href="#GLDF.frontend.configure_hccd_spatial_regimes" title="Link to this definition"></a></dt>
+<dd><p>Get standard-configuration of HCCD for spatial (2 dimensional, non-time-series) data. Uses FCI <a class="reference internal" href="index.html#sgs01" id="id8"><span>[SGS01]</span></a> as default CD-algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>regimes_are_large</strong> (<em>bool</em><em>, </em><em>optional</em>) – use hyper-parameter sets optimized for large regimes (True is recommended, especially for time-series data), defaults to True</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for hypothesis-tests, defaults to 0.01</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HCCD configuration used by <a class="reference internal" href="#GLDF.frontend.run_hccd_spatial_regimes" title="GLDF.frontend.run_hccd_spatial_regimes"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_hccd_spatial_regimes()</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#GLDF.frontend.ConfigureHCCD" title="GLDF.frontend.ConfigureHCCD">ConfigureHCCD</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Besides the members of a <a class="reference internal" href="#GLDF.frontend.ConfigureHCCD" title="GLDF.frontend.ConfigureHCCD"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigureHCCD</span></code></a> instance,
+also its methods of the form “get_something” are intended to be overwritten
+(externally by monkey-patching or by defining a derived class).
+Running the configuration through its <a class="reference internal" href="#GLDF.frontend.ConfigureHCCD.run" title="GLDF.frontend.ConfigureHCCD.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ConfigureHCCD.run()</span></code></a> method
+automatically ensures these getters are executed exactely once and cached.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ConfigureHCCD</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.frontend.Config" title="GLDF.frontend.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a></p>
+<p>Modular configuration of backend for HCCD.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.is_timeseries">
+<span class="sig-name descname"><span class="pre">is_timeseries</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.is_timeseries" title="Link to this definition"></a></dt>
+<dd><p>is time-series data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.alpha" title="Link to this definition"></a></dt>
+<dd><p>confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for hypothesis-tests</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.min_regime_fraction">
+<span class="sig-name descname"><span class="pre">min_regime_fraction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.15</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.min_regime_fraction" title="Link to this definition"></a></dt>
+<dd><p>minimum regime-fraction to consider</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.indicator_resolution_granularity">
+<span class="sig-name descname"><span class="pre">indicator_resolution_granularity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.indicator_resolution_granularity" title="Link to this definition"></a></dt>
+<dd><p>granularity used for post-process approximate indicator resultion</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.regimes_are_large">
+<span class="sig-name descname"><span class="pre">regimes_are_large</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.regimes_are_large" title="Link to this definition"></a></dt>
+<dd><p>use hyper-parameter sets optimized for large regimes (True is recommended, especially for time-series data)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.tau_max">
+<span class="sig-name descname"><span class="pre">tau_max</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.tau_max" title="Link to this definition"></a></dt>
+<dd><p>maximum lag to use for time-series algorithms (ignored for IID algorithms)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.alpha_pc1">
+<span class="sig-name descname"><span class="pre">alpha_pc1</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.alpha_pc1" title="Link to this definition"></a></dt>
+<dd><p>confidence-parameter <span class="math notranslate nohighlight">\(\alpha\)</span> for independence-tests in PC1-phase of PCMCI-family algorithms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_data_manager">
+<span class="sig-name descname"><span class="pre">get_data_manager</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_data_manager" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_backend_config">
+<span class="sig-name descname"><span class="pre">get_backend_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.frontend.ConfigureBackend" title="GLDF.frontend.ConfigureBackend"><span class="pre">ConfigureBackend</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_backend_config" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_backend">
+<span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_backend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_mci_backend">
+<span class="sig-name descname"><span class="pre">get_mci_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_mci_backend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.alpha_homogeneity_pc1">
+<span class="sig-name descname"><span class="pre">alpha_homogeneity_pc1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.alpha_homogeneity_pc1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_pc1_backend">
+<span class="sig-name descname"><span class="pre">get_pc1_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_pc1_backend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_transitionable_backend">
+<span class="sig-name descname"><span class="pre">get_transitionable_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries" title="GLDF.independence_atoms.IndependenceAtoms_TimeSeries"><span class="pre">IndependenceAtoms_TimeSeries</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_transitionable_backend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_universal_cd">
+<span class="sig-name descname"><span class="pre">get_universal_cd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="layer_composition.html#GLDF.hccd.abstract_cd_t" title="GLDF.hccd.abstract_cd_t"><span class="pre">abstract_cd_t</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_universal_cd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_state_space_construction">
+<span class="sig-name descname"><span class="pre">get_state_space_construction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="composition_layer/state_space_construction_spec.html#GLDF.hccd.IConstructStateSpace" title="GLDF.hccd.IConstructStateSpace"><span class="pre">IConstructStateSpace</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_state_space_construction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_controller">
+<span class="sig-name descname"><span class="pre">get_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="composition_layer/controller.html#GLDF.hccd.Controller" title="GLDF.hccd.Controller"><span class="pre">Controller</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_controller" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_cit">
+<span class="sig-name descname"><span class="pre">get_cit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.ITestCI" title="GLDF.data_processing.ITestCI"><span class="pre">ITestCI</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_cit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.get_indicator_resultion">
+<span class="sig-name descname"><span class="pre">get_indicator_resultion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="post_processing.html#GLDF.hccd.IResolveRegimeStructure" title="GLDF.hccd.IResolveRegimeStructure"><span class="pre">IResolveRegimeStructure</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.get_indicator_resultion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#GLDF.frontend.Result" title="GLDF.frontend.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.run" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureHCCD.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_timeseries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_regime_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicator_resolution_granularity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_pc1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureHCCD.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>Internally, this uses one or multiple (for PCMCI-family algorithms)
+backends configured similarly through:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ConfigureBackend</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#GLDF.frontend.Config" title="GLDF.frontend.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a></p>
+<p>Modular configuration of extended independence atom backend.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.data_manager">
+<span class="sig-name descname"><span class="pre">data_manager</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.data_manager" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.alpha">
+<span class="sig-name descname"><span class="pre">alpha</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.alpha" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.alpha_homogeneity">
+<span class="sig-name descname"><span class="pre">alpha_homogeneity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.alpha_homogeneity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.regimes_are_large">
+<span class="sig-name descname"><span class="pre">regimes_are_large</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.regimes_are_large" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.min_regime_fraction">
+<span class="sig-name descname"><span class="pre">min_regime_fraction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.15</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.min_regime_fraction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.enable_weak_test">
+<span class="sig-name descname"><span class="pre">enable_weak_test</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.enable_weak_test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.enable_implication_test">
+<span class="sig-name descname"><span class="pre">enable_implication_test</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.enable_implication_test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.get_cit">
+<span class="sig-name descname"><span class="pre">get_cit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.ITestCI" title="GLDF.data_processing.ITestCI"><span class="pre">ITestCI</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.get_cit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.cit_analytic_quantile_estimate">
+<span class="sig-name descname"><span class="pre">cit_analytic_quantile_estimate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.IProvideAnalyticQuantilesForCIT" title="GLDF.data_processing.IProvideAnalyticQuantilesForCIT"><span class="pre">IProvideAnalyticQuantilesForCIT</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.cit_analytic_quantile_estimate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.cit_variance_estimate">
+<span class="sig-name descname"><span class="pre">cit_variance_estimate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/cit_interfaces.html#GLDF.data_processing.IProvideVarianceForCIT" title="GLDF.data_processing.IProvideVarianceForCIT"><span class="pre">IProvideVarianceForCIT</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.cit_variance_estimate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.get_homogeneity_test">
+<span class="sig-name descname"><span class="pre">get_homogeneity_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestHomogeneity" title="GLDF.data_processing.ITestHomogeneity"><span class="pre">ITestHomogeneity</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.get_homogeneity_test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.get_weak_test">
+<span class="sig-name descname"><span class="pre">get_weak_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestWeakRegime" title="GLDF.data_processing.ITestWeakRegime"><span class="pre">ITestWeakRegime</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.get_weak_test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.get_mcit">
+<span class="sig-name descname"><span class="pre">get_mcit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI" title="GLDF.data_processing.ITestMarkedCI"><span class="pre">ITestMarkedCI</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.get_mcit" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.get_implication_test">
+<span class="sig-name descname"><span class="pre">get_implication_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestIndicatorImplications" title="GLDF.data_processing.ITestIndicatorImplications"><span class="pre">ITestIndicatorImplications</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.get_implication_test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.get_backend">
+<span class="sig-name descname"><span class="pre">get_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.get_backend" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.ConfigureBackend.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_homogeneity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_regime_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_weak_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_implication_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.frontend.ConfigureBackend.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>These configuration-classes are based on <a class="reference internal" href="#GLDF.frontend.Config" title="GLDF.frontend.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a>, which
+provides convenience features for making produced values unique
+(execute getters at most once).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.frontend.Config">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#GLDF.frontend.Config" title="Link to this definition"></a></dt>
+<dd><p>Helper for setting up configuration-objects.
+Calling <a class="reference internal" href="#GLDF.frontend.Config.finalize" title="GLDF.frontend.Config.finalize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">finalize()</span></code></a> will return a copy which is modified such as to execute each method prefixed with ‘get_’
+once, caching the result.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.frontend.Config.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.frontend.Config.finalize" title="Link to this definition"></a></dt>
+<dd><p>Modify methods prefixed by ‘get_’ to be executed at most once (on first invokation) and cached for further calls.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-GLDF.hyperparams">
+<span id="hyper-parameter-sets"></span><h2>Hyper-Parameter Sets<a class="headerlink" href="#module-GLDF.hyperparams" title="Link to this heading"></a></h2>
+<p>If substantial prior knowledge concering the regime-structure is available
+the user may want to provide their own hyper-parameter sets as specified
+in <a class="reference internal" href="data_layer/hyperparam_interfaces.html#label-hyperparam-interfaces"><span class="std std-ref">Interfaces for Hyper-Parameter Sets</span></a>.
+For generic cases and a partial correlation test,
+we provide two preconfigured hyper-parameter sets
+(one for generic regimes, one for large regimes; numerical experiments
+suggest that especially for time-series data the one for large regimes
+currently often leads to better results). These are available
+in <a class="reference internal" href="#module-GLDF.hyperparams" title="GLDF.hyperparams: Generic hyper-parameter sets."><code class="xref py py-mod docutils literal notranslate"><span class="pre">hyperparams</span></code></a>.
+Details can be found in §D.3.4 and §D.4.6 of <a class="reference internal" href="index.html#rr25" id="id9"><span>[RR25]</span></a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Hyperparams_HomogeneityBinomial_ParCorr</span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForBinomial" title="GLDF.data_processing.IProvideHyperparamsForBinomial"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideHyperparamsForBinomial</span></code></a></p>
+<p>Helper to configure standard hyper-parameter sets for binomial homogeneity test when using partial correlation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha_error_control</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_block_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_effective_sample_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.__init__" title="Link to this definition"></a></dt>
+<dd><p>Construct Hyper-parameter set for given parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha_error_control</strong> (<em>float</em><em>, </em><em>optional</em>) – Error-control target <span class="math notranslate nohighlight">\(\alpha\)</span>, defaults to 0.05</p></li>
+<li><p><strong>min_block_count</strong> (<em>int</em><em>, </em><em>optional</em>) – Pick block-size to ensure minimum number of blocks, defaults to 5</p></li>
+<li><p><strong>min_effective_sample_count</strong> (<em>int</em><em>, </em><em>optional</em>) – Pick block-size to ensure minimum effective sample-size per block (for partial correlation), defaults to 5</p></li>
+<li><p><strong>regimes_are_large</strong> (<em>bool</em><em>, </em><em>optional</em>) – Consider hyper-parameters for large regimes, defaults to True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.cache">
+<span class="sig-name descname"><span class="pre">cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict[(&lt;class</span> <span class="pre">'int'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'int'&gt;),</span> <span class="pre">~GLDF.data_processing.IProvideHyperparamsForBinomial.Hyperparams]</span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.cache" title="Link to this definition"></a></dt>
+<dd><p>Set to None to disable cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.hyperparams_for_binomial">
+<span class="sig-name descname"><span class="pre">hyperparams_for_binomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForBinomial.Hyperparams" title="GLDF.data_processing.IProvideHyperparamsForBinomial.Hyperparams"><span class="pre">Hyperparams</span></a></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.hyperparams_for_binomial" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForBinomial" title="GLDF.data_processing.IProvideHyperparamsForBinomial"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideHyperparamsForBinomial</span></code></a><em>.</em></p>
+<p>Supply hyper-parameters for the binomial homogeneity-test for the given setup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – sample-size</p></li>
+<li><p><strong>dim_Z</strong> (<em>int</em>) – size of conditioning set</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The hyper-parameters to use.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForBinomial.Hyperparams" title="GLDF.data_processing.IProvideHyperparamsForBinomial.Hyperparams">IProvideHyperparamsForBinomial.Hyperparams</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.get_opt_beta">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_opt_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha_homogeneity_err_control_requested</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_start_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.get_opt_beta" title="Link to this definition"></a></dt>
+<dd><p>The binomial test rejects at an integer count. To target a specific error-rate <span class="math notranslate nohighlight">\(\alpha\)</span>, this function modifies the quantile <span class="math notranslate nohighlight">\(\beta\)</span>-start-value such that
+that for the returned <span class="math notranslate nohighlight">\(\beta'\geq\beta\)</span> will realize the error-rate <span class="math notranslate nohighlight">\(\alpha\)</span> for the (also returned) integer cutoff-count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha_homogeneity_err_control_requested</strong> (<em>float</em>) – Requrested error-control <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+<li><p><strong>block_count</strong> (<em>int</em>) – The total number of blocks.</p></li>
+<li><p><strong>beta_start_value</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial value for <span class="math notranslate nohighlight">\(\beta\)</span>, defaults to 0.1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeWarning</strong> – The solution for <span class="math notranslate nohighlight">\(\beta'\)</span> is found numerically. In case of convergence problems, an exception is raised.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple (<span class="math notranslate nohighlight">\(\beta'\)</span>, cutoff-count).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[float, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.get_opt_blocksize">
+<span class="sig-name descname"><span class="pre">get_opt_blocksize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.get_opt_blocksize" title="Link to this definition"></a></dt>
+<dd><p>Get heuristic hyper-parameter choice for block-size <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Sample-size.</p></li>
+<li><p><strong>dim_Z</strong> (<em>int</em>) – Conditioning-set size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Recommended block-size to use.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.compute_for_fixed_sample_count">
+<span class="sig-name descname"><span class="pre">compute_for_fixed_sample_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForBinomial.Hyperparams" title="GLDF.data_processing.IProvideHyperparamsForBinomial.Hyperparams"><span class="pre">Hyperparams</span></a></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_HomogeneityBinomial_ParCorr.compute_for_fixed_sample_count" title="Link to this definition"></a></dt>
+<dd><p>Obtain actual runtime parameters. Typically called only by implementation of the corresponding marked-independence stage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Sample-size.</p></li>
+<li><p><strong>dim_Z</strong> (<em>int</em>) – Conditioning-set size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Execution-parameters for the corresponding algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dpl.IProvideHyperparamsForBinomial.Hyperparams</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Hyperparams_WeakInterval_ParCorr</span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval" title="GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideHyperparamsForAcceptanceInterval</span></code></a></p>
+<p>Helper to configure standard hyper-parameter sets for acceptance-interval weak-regime test when using partial correlation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regimes_are_large</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.__init__" title="Link to this definition"></a></dt>
+<dd><p>Configure hyper-parameters set based on given parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Error-control target <span class="math notranslate nohighlight">\(\alpha\)</span>, defaults to 0.05</p></li>
+<li><p><strong>regimes_are_large</strong> (<em>bool</em><em>, </em><em>optional</em>) – Consider hyper-parameters for large regimes, defaults to True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.hyperparams_for_acceptance_interval">
+<span class="sig-name descname"><span class="pre">hyperparams_for_acceptance_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval.Hyperparams" title="GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval.Hyperparams"><span class="pre">Hyperparams</span></a></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.hyperparams_for_acceptance_interval" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval" title="GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideHyperparamsForAcceptanceInterval</span></code></a><em>.</em></p>
+<p>Supply hyper-parameters for acceptance-interval tests for given setup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – sample-size</p></li>
+<li><p><strong>dim_Z</strong> (<em>int</em>) – size of conditioning set</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The hyper-parameters to use.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval.Hyperparams" title="GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval.Hyperparams">IProvideHyperparamsForAcceptanceInterval.Hyperparams</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_opt_blocksize">
+<span class="sig-name descname"><span class="pre">get_opt_blocksize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_opt_blocksize" title="Link to this definition"></a></dt>
+<dd><p>Heuristic choice of hyper-parameter for block-size <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Sample-size.</p></li>
+<li><p><strong>dim_Z</strong> (<em>int</em>) – Conditioning-set size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Heuristic block-size choice.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_opt_cutoff">
+<span class="sig-name descname"><span class="pre">get_opt_cutoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_opt_cutoff" title="Link to this definition"></a></dt>
+<dd><p>Heuristic choice of hyper-parameter for cutoff <span class="math notranslate nohighlight">\(c\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Sample-size.</p></li>
+<li><p><strong>dim_Z</strong> (<em>int</em>) – Conditioning-set size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Heuristic cutoff choice.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_for_fixed_sample_count">
+<span class="sig-name descname"><span class="pre">get_for_fixed_sample_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_Z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/hyperparam_interfaces.html#GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval.Hyperparams" title="GLDF.data_processing.IProvideHyperparamsForAcceptanceInterval.Hyperparams"><span class="pre">Hyperparams</span></a></span></span><a class="headerlink" href="#GLDF.hyperparams.Hyperparams_WeakInterval_ParCorr.get_for_fixed_sample_count" title="Link to this definition"></a></dt>
+<dd><p>Obtain actual runtime parameters. Typically called only by implementation of the corresponding marked-independence stage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Sample-size.</p></li>
+<li><p><strong>dim_Z</strong> (<em>int</em>) – Size of the conditioning set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Execution-parameters for the corresponding algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dpl.IProvideHyperparamsForAcceptanceInterval.Hyperparams</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="independence-atom-backends">
+<h2>Independence Atom Backends<a class="headerlink" href="#independence-atom-backends" title="Link to this heading"></a></h2>
+<p>While <a class="reference internal" href="data_mgmt.html#module-GLDF.data_management" title="GLDF.data_management: Specifications and helpers for data-management."><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_management</span></code></a> and
+<a class="reference internal" href="layer_data_proc.html#module-GLDF.data_processing" title="GLDF.data_processing: Data processing layer."><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_processing</span></code></a> are implemented modular
+and independent of each other, the <a class="reference internal" href="layer_composition.html#label-composition-layer"><span class="std std-ref">Composition Layer</span></a>
+accesses only <a class="reference internal" href="layer_data_proc.html#module-GLDF.data_processing" title="GLDF.data_processing: Data processing layer."><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_processing</span></code></a> primitives
+directly (see <a class="reference internal" href="layer_composition.html#label-composition-layer-backend"><span class="std std-ref">Independence Atom Backend</span></a>).
+Such a independence-atom backend is provided in <a class="reference internal" href="#module-GLDF.independence_atoms" title="GLDF.independence_atoms: Frontend/composed backend for data-management and independence-atoms."><code class="xref py py-mod docutils literal notranslate"><span class="pre">independence_atoms</span></code></a>
+(for IID and time-series respectively) by:</p>
+<dl class="py class" id="module-GLDF.independence_atoms">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_Backend">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">IndependenceAtoms_Backend</span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_Backend" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a></p>
+<p>Integrate data-provider with mCIT and implication-testing into a independence-atom backend
+for use in <a class="reference internal" href="layer_composition.html#module-GLDF.hccd" title="GLDF.hccd: Composition layer."><code class="xref py py-mod docutils literal notranslate"><span class="pre">hccd</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_Backend.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><span class="pre">IManageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_cit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI" title="GLDF.data_processing.ITestMarkedCI"><span class="pre">ITestMarkedCI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">implication_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestIndicatorImplications" title="GLDF.data_processing.ITestIndicatorImplications"><span class="pre">ITestIndicatorImplications</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.__init__" title="Link to this definition"></a></dt>
+<dd><p>Consstruct from data-manager, mCIT and implication-test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_manager</strong> (<a class="reference internal" href="data_mgmt/data_managers.html#GLDF.data_management.IManageData" title="GLDF.data_management.IManageData"><em>IManageData</em></a>) – data-manager</p></li>
+<li><p><strong>m_cit</strong> (<a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI" title="GLDF.data_processing.ITestMarkedCI"><em>ITestMarkedCI</em></a>) – mCIT</p></li>
+<li><p><strong>implication_test</strong> (<a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestIndicatorImplications" title="GLDF.data_processing.ITestIndicatorImplications"><em>ITestIndicatorImplications</em></a><em>, </em><em>optional</em>) – indicator implication test, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_Backend.marked_independence">
+<span class="sig-name descname"><span class="pre">marked_independence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI.Result" title="GLDF.data_processing.ITestMarkedCI.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.marked_independence" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a><em>.</em></p>
+<p>Provide a marked-independence statement.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Provides functionality described by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">TestMarkedCI.marked_independence</span></code>
+but with actual data made opaque.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – conditional independence to test</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>marked CIT result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI.Result" title="GLDF.data_processing.ITestMarkedCI.Result">ITestMarkedCI.Result</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_Backend.regime_implication">
+<span class="sig-name descname"><span class="pre">regime_implication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><span class="pre">CI_Identifier</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.regime_implication" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a><em>.</em></p>
+<p>Provide a regime-implication statement.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Provides functionality described by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">ITestIndicatorImplications.is_implied_regime</span></code>
+but with actual data made opaque.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<em>list</em><em>[</em><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a><em>]</em>) – lhs of the implication</p></li>
+<li><p><strong>rhs</strong> (<a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – rhs of the implication</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>test-result for truth-value of the implication</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_Backend.found_globally_independent_for_some_Z">
+<span class="sig-name descname"><span class="pre">found_globally_independent_for_some_Z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">undirected_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_Backend.found_globally_independent_for_some_Z" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a><em>.</em></p>
+<p>Provide information about wheter among the test-results provided so far,
+there was a CIT on the specified <code class="xref py py-obj docutils literal notranslate"><span class="pre">undirected_link</span></code> for any conditioning
+set Z which was reported globally independent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>undirected_link</strong> (<em>tuple</em>) – the undirected link on which to check for independent CIT-results</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Truth-value about wheter any globally independent outcome was encountered on this link.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_TimeSeries">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">IndependenceAtoms_TimeSeries</span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a>, <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">IHandleExplicitTransitionToMCI</span></code></a></p>
+<p>Dual-phase/transitionable backend to account for different configurations in PC1 and MCI
+phases of PCMCI-family algorithms.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_TimeSeries.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">independence_atoms_pc1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">independence_atoms_mci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><span class="pre">IProvideIndependenceAtoms</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.__init__" title="Link to this definition"></a></dt>
+<dd><p>Construct from two separate backends for PC1 and MCI phases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>independence_atoms_pc1</strong> (<a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><em>IProvideIndependenceAtoms</em></a>) – backend for PC1 phase</p></li>
+<li><p><strong>independence_atoms_mci</strong> (<a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><em>IProvideIndependenceAtoms</em></a>) – backend for MCI phase</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_TimeSeries.marked_independence">
+<span class="sig-name descname"><span class="pre">marked_independence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier_TimeSeries" title="GLDF.data_management.CI_Identifier_TimeSeries"><span class="pre">CI_Identifier_TimeSeries</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI.Result" title="GLDF.data_processing.ITestMarkedCI.Result"><span class="pre">Result</span></a></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.marked_independence" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a><em>.</em></p>
+<p>Provide a marked-independence statement.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Provides functionality described by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">TestMarkedCI.marked_independence</span></code>
+but with actual data made opaque.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ci</strong> (<a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – conditional independence to test</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>marked CIT result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="data_layer/component_interfaces.html#GLDF.data_processing.ITestMarkedCI.Result" title="GLDF.data_processing.ITestMarkedCI.Result">ITestMarkedCI.Result</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_TimeSeries.regime_implication">
+<span class="sig-name descname"><span class="pre">regime_implication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier_TimeSeries" title="GLDF.data_management.CI_Identifier_TimeSeries"><span class="pre">CI_Identifier_TimeSeries</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier_TimeSeries" title="GLDF.data_management.CI_Identifier_TimeSeries"><span class="pre">CI_Identifier_TimeSeries</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.regime_implication" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a><em>.</em></p>
+<p>Provide a regime-implication statement.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Provides functionality described by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">ITestIndicatorImplications.is_implied_regime</span></code>
+but with actual data made opaque.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<em>list</em><em>[</em><a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a><em>]</em>) – lhs of the implication</p></li>
+<li><p><strong>rhs</strong> (<a class="reference internal" href="data_mgmt/CI_ID.html#GLDF.data_management.CI_Identifier" title="GLDF.data_management.CI_Identifier"><em>CI_Identifier</em></a>) – rhs of the implication</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>test-result for truth-value of the implication</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_TimeSeries.found_globally_independent_for_some_Z">
+<span class="sig-name descname"><span class="pre">found_globally_independent_for_some_Z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">undirected_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.found_globally_independent_for_some_Z" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IProvideIndependenceAtoms" title="GLDF.hccd.IProvideIndependenceAtoms"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProvideIndependenceAtoms</span></code></a><em>.</em></p>
+<p>Provide information about wheter among the test-results provided so far,
+there was a CIT on the specified <code class="xref py py-obj docutils literal notranslate"><span class="pre">undirected_link</span></code> for any conditioning
+set Z which was reported globally independent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>undirected_link</strong> (<em>tuple</em>) – the undirected link on which to check for independent CIT-results</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Truth-value about wheter any globally independent outcome was encountered on this link.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_TimeSeries.enter_pc1">
+<span class="sig-name descname"><span class="pre">enter_pc1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.enter_pc1" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">IHandleExplicitTransitionToMCI</span></code></a><em>.</em></p>
+<p>Callback for notification that the underlying cd-algorithm has (re)entered
+(what is considered by the controller) to be part of the PC1-phase.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GLDF.independence_atoms.IndependenceAtoms_TimeSeries.enter_mci">
+<span class="sig-name descname"><span class="pre">enter_mci</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#GLDF.independence_atoms.IndependenceAtoms_TimeSeries.enter_mci" title="Link to this definition"></a></dt>
+<dd><p><em>Implements functionality of interface</em> <a class="reference internal" href="composition_layer/compound_backend.html#GLDF.hccd.IHandleExplicitTransitionToMCI" title="GLDF.hccd.IHandleExplicitTransitionToMCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">IHandleExplicitTransitionToMCI</span></code></a><em>.</em></p>
+<p>Callback for notification that the underlying cd-algorithm has (re)entered
+(what is considered by the controller) to be part of the MCI-phase.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="GLDF: Non-Homogeneous Causal Graph Discovery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data_mgmt.html" class="btn btn-neutral float-right" title="Data Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Rabel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
