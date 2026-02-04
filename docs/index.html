@@ -10,6 +10,7 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -20,6 +21,7 @@
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -84,7 +86,7 @@
              
   <section id="module-GLDF">
 <span id="gldf-non-homogeneous-causal-graph-discovery"></span><h1>GLDF: Non-Homogeneous Causal Graph Discovery<a class="headerlink" href="#module-GLDF" title="Link to this heading"></a></h1>
-<p>This is the reference implementation of the framework described by <a class="reference internal" href="#rr25" id="id1"><span>[RR25]</span></a>
+<p>This is the reference implementation (<a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF">github repo</a>) of the framework described by <a class="reference internal" href="#rr25" id="id1"><span>[RR25]</span></a>
 for causal graph discovery on non-homogeneous data.</p>
 <figure class="align-default" id="id4">
 <a class="reference internal image-reference" href="_images/output_example.png"><img alt="sample-output plus interpretation" src="_images/output_example.png" style="width: 616.1999999999999px; height: 250.79999999999998px;" />
@@ -122,11 +124,39 @@ if the need arises.</p>
 and <a class="reference external" href="https://causal-learn.readthedocs.io/en/latest/">causal-learn</a>
 python packages out of the box.
 We recommend the user to install at least one of these.</p>
-<p>This documentation describes the code of the code-repository
-<a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF">github.com/martin-rabel/Causal_GLDF</a>.</p>
 <section id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h3>
-<p>Installation instructions will follow soon.</p>
+<p>The package can currently be installed through pip or by cloning the <a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF">code-repository</a>.
+Installation via pip should typically occur within a virtual environment,
+see e.g. <a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Full</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Minimal</button><button aria-controls="panel-0-0-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-2" name="0-2" role="tab" tabindex="-1">No Dependencies</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>Recommended.
+Install relevant/helpful dependencies (see <a class="reference internal" href="#label-dependencies"><span class="std std-ref">Dependencies</span></a>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;GLDF[full]&#39;</span>
+</pre></div>
+</div>
+<p>The tutorials, provided as jupyter notebooks, additionally require <a class="reference external" href="https://jupyter.org/">juypter</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ipykernel<span class="w"> </span>jupyter
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>Install only minimal dependencies (see <a class="reference internal" href="#label-dependencies"><span class="std std-ref">Dependencies</span></a>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;GLDF[minimal]&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently <code class="code highlight bash docutils literal highlight-bash">pip<span class="w"> </span>install<span class="w"> </span>GLDF</code> also installs the minimal version,
+with <a class="reference external" href="https://peps.python.org/pep-0771/">PEP 771</a>, if adopted,
+we may change the default behavior
+to the recommended (full) setting in future versions. To enforce a minimal
+setup you should thus <em>not</em> rely on pip’s current fallback behavior.</p>
+</div>
+</div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><p>This package (as any other package) can be installed without pulling in depedendencies
+via the <code class="code highlight bash docutils literal highlight-bash">--no-deps</code> option:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>GLDF<span class="w"> </span>--no-deps
+</pre></div>
+</div>
+</div></div>
 </section>
 <section id="dependencies">
 <span id="label-dependencies"></span><h3>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h3>
@@ -140,6 +170,7 @@ this package requires:</p>
 <ul class="simple">
 <li><p>matplotlib (version 3.7.0 or newer, tested on 3.10.5)</p></li>
 <li><p>tigramite (version 5.2.0.0 or newer, tested on 5.2.8.2)</p></li>
+<li><p>networkx (version 3.0 or newer, tested on 3.5)</p></li>
 </ul>
 <p>For easy and direct access to causal discovery algorithms:</p>
 <ul class="simple">
@@ -361,7 +392,7 @@ Journal of Machine Learning Research, 25(60):1–8, 2024.</p>
 <h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
 <p>Copyright (C) 2025-2026 Martin Rabel</p>
 <p>GNU General Public License v3.0</p>
-<p>See license.txt in the code-repository for full text.</p>
+<p>See <a class="reference external" href="https://github.com/martin-rabel/Causal_GLDF/blob/main/LICENSE">license-file</a> in the code-repository for full text.</p>
 <p>This package is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This package is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 </section>
 </section>

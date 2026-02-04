@@ -44,6 +44,7 @@ Recommended (additionally):
 
 *   matplotlib (version 3.7.0 or newer, tested on 3.10.5)
 *   tigramite (version 5.2.0.0 or newer, tested on 5.2.8.2)
+*   networkx (version 3.0 or newer, tested on 3.5), used via tigramite's graph plotting
 *   causal-learn (tested on 0.1.4.3)
 
 
